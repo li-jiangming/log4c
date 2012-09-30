@@ -43,13 +43,15 @@ static int stream_append(log4c_appender_t* this,
 /*******************************************************************************/
 static int stream_close(log4c_appender_t* this)
 {
+    int retval;
     FILE* fp = log4c_appender_get_udata(this);
-    
 
     if (!fp || fp == stdout || fp == stderr)
 	return 0;
 
-    return fclose(fp);
+    retval = fclose(fp);
+    if (retval == 0) log4c_appender_set_udata(this, NULL);
+    return retval;
 }
 
 /*******************************************************************************/
