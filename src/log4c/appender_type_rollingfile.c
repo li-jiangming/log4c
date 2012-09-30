@@ -165,7 +165,7 @@ static int rollingfile_append(log4c_appender_t* this,
      
   /* only attempt the write if the policy implem says I can */
   if ( rc <= ROLLINGPOLICY_ROLLOVER_ERR_CAN_LOG ) {	           
-   rc = fprintf(rfup->rfu_current_fp, a_event->evt_rendered_msg);
+   rc = fprintf(rfup->rfu_current_fp, "%s", a_event->evt_rendered_msg);
    rfup->rfu_current_file_size += strlen(a_event->evt_rendered_msg);
 
    /*
