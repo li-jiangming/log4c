@@ -32,9 +32,13 @@ extern char* sd_vsprintf(const char* a_fmt, va_list a_args)
 {
     int		size	= 1024;
     char*	buffer  = sd_calloc(size, sizeof(char));
+    va_list ap;
+    int n;
     
     while (1) {
-	int n = vsnprintf(buffer, size, a_fmt, a_args);
+	va_copy(ap, a_args);
+	n = vsnprintf(buffer, size, a_fmt, ap);
+	va_end(ap);
 	
 	/* If that worked, return */
 	if (n > -1 && n < size)

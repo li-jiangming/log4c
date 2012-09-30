@@ -3,7 +3,7 @@ INCLUDES = \
 	-DSRCDIR="\"$(srcdir)\""
 
 noinst_PROGRAMS = test_category test_rc bench bench_fwrite \
-	test_stream2 test_layout_r cpp_compile_test
+	test_stream2 test_layout_r test_big cpp_compile_test
 
 if WITH_ROLLINGFILE
 noinst_PROGRAMS += test_rollingfile_appender test_rollingfile_appender_mt
@@ -40,6 +40,9 @@ test_rollingfile_appender_mt_LDADD =  $(top_builddir)/src/log4c/liblog4c.la \
                                   -lpthread
 endif
 
+test_big_SOURCES = test_big.c
+test_big_LDADD = $(top_builddir)/src/log4c/liblog4c.la
+
 EXTRA_DIST = \
         test_category.ref \
 	test_rc.in \
@@ -51,7 +54,7 @@ bench.mmap:
 all-local: bench.mmap 
 
 check-local: 
-	@for i in test_category test_layout_r test_rc; do \
+	@for i in test_category test_layout_r test_rc test_big; do \
 	    LOG4C_PRIORITY=notice ./$$i || exit 1; \
 	    sed 's/udata:0x[0-9a-f]*/udata:0x111111111111/' $$i.out > $$i.out2; \
 	    test -f $(srcdir)/$$i.ref && diff $$i.out2 $(srcdir)/$$i.ref || exit 1; \
