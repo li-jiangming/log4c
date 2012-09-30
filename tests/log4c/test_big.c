@@ -14,7 +14,6 @@
 
 static log4c_category_t* root = NULL;
 static log4c_appender_t* appender = NULL;
-static log4c_layout_t* layout = NULL;
 
 static int test_big(sd_test_t* a_test, int argc, char *argv[]) {
 	char *buf;
@@ -27,6 +26,8 @@ static int test_big(sd_test_t* a_test, int argc, char *argv[]) {
 	log4c_category_log(root, LOG4C_PRIORITY_INFO, "%s", buf);
 
 	free(buf);
+
+	return 1;
 }
 
 int main(int argc, char *argv[]) {
