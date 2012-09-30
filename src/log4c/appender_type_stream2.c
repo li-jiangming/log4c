@@ -52,7 +52,7 @@ static int stream2_open(log4c_appender_t* this)
 	return(-1);
     }
     s2up = stream2_get_or_make_udata(this);
-    //s2up = stream2_get_udata(this);
+    /* s2up = stream2_get_udata(this); */
 
     fp = s2up->s2u_fp;
     flags = s2up->s2u_flags;    

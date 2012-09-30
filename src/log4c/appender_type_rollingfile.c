@@ -160,7 +160,7 @@ static int rollingfile_append(log4c_appender_t* this,
       /*sd_debug("non-buffered not rotate event");*/
     }
   }else {
-    // no rotation policy, just continue using the current fp 
+    /* no rotation policy, just continue using the current fp */
   }
      
   /* only attempt the write if the policy implem says I can */

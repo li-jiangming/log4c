@@ -143,7 +143,8 @@ static int test2(sd_test_t* a_test, int argc, char* argv[])
     return 1;
 }
 
-/******************************************************************************//*
+/******************************************************************************/
+/*
   This tests case 2a above (use stream2 default config values)
 */
 static int test3(sd_test_t* a_test, int argc, char* argv[])
@@ -169,7 +170,8 @@ static int test3(sd_test_t* a_test, int argc, char* argv[])
     return 1;
 }
 
-/******************************************************************************//*
+/******************************************************************************/
+/*
   This tests case tests opening and closing the stream2 
 several times....to test for mem leaks or corruption
 */

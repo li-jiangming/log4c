@@ -182,19 +182,19 @@ void getopts(int argc, char **argv){
     switch(c) {
     case 'f':
       g_usefile = 1;
-      //printf("appender is '%s'\n",appender );
+      /*printf("appender is '%s'\n",appender );*/
       break;
     case 'p':
       g_add_sprintf_to_fwrite = 1;
-      //printf("appender is '%s'\n",appender );
+      /*printf("appender is '%s'\n",appender );*/
       break;
     case 'm':
       g_bufmode = atoi(optarg);
-      //printf("appender is '%s'\n",appender );
+      /*printf("appender is '%s'\n",appender );*/
       break;
     case 'n':
       g_num_msgs = atol(optarg);
-      // printf("priority is '%s'\n",priority );
+      /*printf("priority is '%s'\n",priority );*/
       break;  
     case 't':
       g_numthreads = atoi(optarg);
@@ -203,15 +203,15 @@ void getopts(int argc, char **argv){
       } else if ( g_numthreads > MAX_NUM_THREADS){
 	g_numthreads = MAX_NUM_THREADS;
       }
-      // printf("priority is '%s'\n",priority );
+      /*printf("priority is '%s'\n",priority );*/
       break;
     case 'w':
       g_usefwrite = 1;
-      // printf("priority is '%s'\n",priority );
+      /*printf("priority is '%s'\n",priority );*/
       break; 
     case 's':
       g_msgsize = atol(optarg);
-      // printf("priority is '%s'\n",priority );
+      /*printf("priority is '%s'\n",priority );*/
       break;
     case 'b':      
       g_mybufsize = atol(optarg);
@@ -221,7 +221,7 @@ void getopts(int argc, char **argv){
 	g_usemybuffer = 1;	
 	g_mybufadjustedsize = ((BUFSIZ + g_mybufsize)/BUFSIZ)*BUFSIZ;
       }
-      // printf("priority is '%s'\n",priority );
+      /*printf("priority is '%s'\n",priority );*/
       break;
     case 'h': 
       bench_log(USAGE);
