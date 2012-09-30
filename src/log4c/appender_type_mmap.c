@@ -107,21 +107,24 @@ static int mmap_append(log4c_appender_t*	this,
 		       const log4c_logging_event_t* a_event)
 {
     size_t size, available;
+    const char *msg;
     struct mmap_info* minfo = log4c_appender_get_udata(this);
 
     if (!minfo && !minfo->ptr)
 	return 0;
 
+    msg = a_event->evt_rendered_msg;
     size = strlen(a_event->evt_rendered_msg);
     available = ((char *)minfo->addr + minfo->length) - (char *)minfo->ptr;
 
     if (size > available) {
-	memcpy(minfo->ptr, a_event->evt_rendered_msg, available);
+	memcpy(minfo->ptr, msg, available);
 	minfo->ptr = minfo->addr;
 	size -= available;
+	msg += available;
     }
 
-    memcpy(minfo->ptr, a_event->evt_rendered_msg, size);
+    memcpy(minfo->ptr, msg, size);
     minfo->ptr = (char *)minfo->ptr + size;
     return 0;
 }
