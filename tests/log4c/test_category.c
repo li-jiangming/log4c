@@ -209,8 +209,6 @@ static int test5(sd_test_t* a_test, int argc, char* argv[])
 /******************************************************************************/
 static int test_restore(sd_test_t* a_test, int argc, char* argv[])
 {
-    log4c_layout_t*   layout1   = log4c_layout_get("layout1");
-    log4c_layout_t*   layout2   = log4c_layout_get("layout2");
     log4c_appender_t* appender  = log4c_appender_get(sd_test_get_name(a_test));
     log4c_appender_t* appender1 = log4c_appender_get("appender1");
     log4c_appender_t* appender2 = log4c_appender_get("appender2");
