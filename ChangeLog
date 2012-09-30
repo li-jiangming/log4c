@@ -1,3 +1,47 @@
+2012-09-30  František Dvořák  <valtri@civ.zcu.cz>
+
+	* configure.in: missing macro AC_PROG_CXX
+
+	* src/sd/test.c, src/sd/test.h, tests/log4c/Makefile.am,
+	tests/log4c/test_category.c, tests/log4c/test_category.ref,
+	tests/log4c/test_layout_r.c, tests/log4c/test_layout_r.ref,
+	tests/log4c/test_rc.ref: update regression tests
+
+	* src/sd/sprintf.c, tests/log4c/Makefile.am, tests/log4c/test_big.c,
+	tests/log4c/test_big.ref:
+	fix segmentation fault on messages longer than 1024 bytes (SF bug
+	#3022803), new test
+
+	* src/log4c/init.c:
+	load only the first log4crc file (SF patch #1578148)
+
+	* src/log4c/appender_type_rollingfile.c,
+	src/log4c/appender_type_stream2.c, tests/log4c/bench_fwrite.c,
+	tests/log4c/test_stream2.c:
+	get rid of C++ comments (SourceForge bug #1848855)
+
+	* configure.in, src/log4c/init.c:
+	proper build without rollingfile appender (SourceForge bug #1911791)
+
+	* src/log4c/appender_type_rollingfile.c:
+	fix rare crash in rollingfile appender (SourceForge bug #1924072)
+
+	* tests/log4c/bench.c:
+	memory leak
+
+	* src/log4c/init.h:
+	missing extern "C" declarations in init.h for C++ (SourceForge bug #2032785)
+
+	* src/log4c/appender_type_stream.c:
+	fix a problem with reopening stream appender - clear udata with file
+	descriptior after closing (Sourceforge bug #3168808)
+
+	* src/log4c/appender_type_mmap.c:
+	proper copy message over end of file in mmap appender (Sourceforge bug
+	#3189231)
+
+	* ChaneLog: update changelog
+
 2007-09-18  Joel Schaubert    <joel4700@sbcglobal.net>
 
 	* configure.in: prep for release 1.2.1
