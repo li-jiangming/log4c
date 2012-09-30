@@ -140,8 +140,11 @@ extern int log4c_init(void)
 		sd_error("loading %s failed", rcfiles[i].name);
 		ret = -1;
 	    }
-	    else
-		sd_debug("loading %s succeeded", rcfiles[i].name);		
+	    else {
+		sd_debug("loading %s succeeded", rcfiles[i].name);
+		ret = 0;
+		break;
+	    }
 	}
     }
   
