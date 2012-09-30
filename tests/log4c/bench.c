@@ -275,6 +275,8 @@ int main(int argc, char* argv[]){
 	*/
     log4c_fini();
 
+    free(buffer);
+
     return 0;
 }
 
