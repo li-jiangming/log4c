@@ -97,7 +97,7 @@ AC_CHECK_HEADER(pthread.h,[
                 with_rollingfile=true],[AC_MSG_NOTICE([No pthread--not compiling rollingfile code])]
                 )
 ])
-AM_CONDITIONAL(WITH_ROLLINGFILE, test "$with_rollingfile" = "true")
+AM_CONDITIONAL(WITH_ROLLINGFILE, test "x$with_rollingfile" = "xtrue")
 
 #####################################
 # Enable test compilation if required
