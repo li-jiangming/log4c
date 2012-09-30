@@ -51,9 +51,10 @@ bench.mmap:
 all-local: bench.mmap 
 
 check-local: 
-	@for i in test_category test_rc; do \
-	    ./$$i || exit 1; \
-	    test -f $(srcdir)/$$i.ref && diff $$i.out $(srcdir)/$$i.ref || exit 1; \
+	@for i in test_category test_layout_r test_rc; do \
+	    LOG4C_PRIORITY=notice ./$$i || exit 1; \
+	    sed 's/udata:0x[0-9a-f]*/udata:0x111111111111/' $$i.out > $$i.out2; \
+	    test -f $(srcdir)/$$i.ref && diff $$i.out2 $(srcdir)/$$i.ref || exit 1; \
 	done
 
 clean-local:

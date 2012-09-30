@@ -36,6 +36,7 @@ struct __sd_test
     int                 size;
     int			argc;
     char**		argv;
+    void*		udata;
 };
 
 
@@ -60,21 +61,6 @@ static usec_t now(void)
 #else
     return (usec_t) (tv.tv_sec * 1000000 + tv.tv_usec);
 #endif
-}
-
-/******************************************************************************/
-static int test_compare(sd_test_t* this, int a_argc, char* a_argv[])
-{
-    char cmd[1024];
-
-    if (SD_ACCESS_READ(this->ref_filename) ||
-	SD_ACCESS_READ(this->out_filename))
-	return 1;
-    
-    snprintf(cmd, sizeof(cmd), "%s %s %s 1>/dev/null 2>&1", DIFF_CMD,
-             this->ref_filename, this->out_filename);
-   
-    return ! system(cmd);
 }
 
 /******************************************************************************/
@@ -193,8 +179,6 @@ extern int sd_test_run(sd_test_t* this, int argc, char* argv[])
     if (!this)
         return -1;
 
-    sd_test_add(this, test_compare);
-    
     fprintf(sd_test_err(this), "%s: ", this->name);
     
     for (i = 0; i < this->size; i++) {
@@ -235,4 +219,16 @@ extern int sd_test_add(sd_test_t* this, sd_test_func_t a_func)
     this->funcs[this->size] = a_func;
 
     return this->size++;
+}
+
+/******************************************************************************/
+extern void* sd_test_get_udata(sd_test_t* this)
+{
+    return this->udata;
+}
+
+/******************************************************************************/
+extern void sd_test_set_udata(sd_test_t* this, void* a_udata)
+{
+    this->udata = a_udata;
 }

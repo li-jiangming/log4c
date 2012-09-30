@@ -29,8 +29,13 @@ static const char version[] = "$Id$";
 #include <sd/factory.h>
 #include <stdio.h>
 
+typedef struct {
+    FILE *out;
+} test_layout_r_udata_t;
+
 static log4c_category_t* root = NULL;
 static log4c_category_t* sub1 = NULL;
+static test_layout_r_udata_t test_udata;
 
 /******************************************************************************/
 static void log4c_print(FILE* a_fp)
@@ -48,10 +53,12 @@ static int test0(sd_test_t* a_test, int argc, char* argv[])
 {
     log4c_layout_t*   layout1   = log4c_layout_get("layout1");
     log4c_appender_t* appender1 = log4c_appender_get("appender1");
+    test_layout_r_udata_t *test_udata = sd_test_get_udata(a_test);
 
     log4c_layout_set_type(layout1, &log4c_layout_type_basic_r);
 
     log4c_appender_set_layout(appender1, layout1);
+    test_udata->out = log4c_appender_get_udata(appender1);
     log4c_appender_set_udata(appender1,  sd_test_out(a_test));
 
     log4c_category_set_appender(sub1, appender1);
@@ -75,6 +82,16 @@ static int test2(sd_test_t* a_test, int argc, char* argv[])
 }
 
 /******************************************************************************/
+static int test_restore(sd_test_t* a_test, int argc, char* argv[])
+{
+    log4c_appender_t* appender1 = log4c_appender_get("appender1");
+    test_layout_r_udata_t *test_udata = sd_test_get_udata(a_test);
+
+    log4c_appender_set_udata(appender1, test_udata->out);
+    return 1;
+}
+
+/******************************************************************************/
 int main(int argc, char* argv[])
 {
     int ret;
@@ -89,17 +106,14 @@ int main(int argc, char* argv[])
 
     log4c_init();
 
-    fprintf(stderr,
-	    "\nNote: there's a known issue with this program double closing \n"	\
-	    "the test file pointer.  This is because the test shares the \n" \
-	    "file with the log4c stream appender and they both close it on \n" \
-	    "exiting.  In the context here this error is benign. \n"	\
-	    "The stream2 appender does not have this issue as it will not \n" \
-	    "close a passed-in file pointer on exit.\n\n");
-
+    sd_test_set_udata(t, &test_udata);
     sd_test_add(t, test0);
     sd_test_add(t, test1);
     sd_test_add(t, test2);
+    /* The test shares the file with the log4c stream appender and they would
+     *  be both closed on exiting. This will restore original file descriptors
+     *  in appenders to prevent double closing. */
+    sd_test_add(t, test_restore);
 
     ret = sd_test_run(t, argc, argv);
 

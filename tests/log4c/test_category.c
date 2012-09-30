@@ -29,9 +29,16 @@ static const char version[] = "$Id$";
 #include <stdio.h>
 #include <string.h>
 
+typedef struct {
+    FILE *out;
+    FILE *out1;
+    FILE *out2;
+} test_category_udata_t;
+
 static log4c_category_t* root = NULL;
 static log4c_category_t* sub1 = NULL;
 static log4c_category_t* sun1sub2 = NULL;
+static test_category_udata_t test_udata;
 
 /*******************************************************************************/
 static const char* test_format(
@@ -107,18 +114,22 @@ static int test1(sd_test_t* a_test, int argc, char* argv[])
     log4c_appender_t* appender  = log4c_appender_get(sd_test_get_name(a_test));
     log4c_appender_t* appender1 = log4c_appender_get("appender1");
     log4c_appender_t* appender2 = log4c_appender_get("appender2");
+    test_category_udata_t *test_udata = sd_test_get_udata(a_test);
 
     log4c_layout_set_type(layout1, &log4c_layout_type_test);
     log4c_layout_set_type(layout2, &log4c_layout_type_test);
 
+    test_udata->out = log4c_appender_get_udata(appender);
     log4c_appender_set_udata(appender, sd_test_out(a_test));
 
     log4c_appender_set_type(appender1,   &log4c_appender_type_test);
     log4c_appender_set_layout(appender1, layout1);
+    test_udata->out = log4c_appender_get_udata(appender1);
     log4c_appender_set_udata(appender1,  sd_test_out(a_test));
 
     log4c_appender_set_type(appender2,   &log4c_appender_type_test);
     log4c_appender_set_layout(appender2, layout2);
+    test_udata->out = log4c_appender_get_udata(appender2);
     log4c_appender_set_udata(appender2,  sd_test_out(a_test));
 
     log4c_category_set_appender(root, appender);
@@ -196,6 +207,23 @@ static int test5(sd_test_t* a_test, int argc, char* argv[])
 }
 
 /******************************************************************************/
+static int test_restore(sd_test_t* a_test, int argc, char* argv[])
+{
+    log4c_layout_t*   layout1   = log4c_layout_get("layout1");
+    log4c_layout_t*   layout2   = log4c_layout_get("layout2");
+    log4c_appender_t* appender  = log4c_appender_get(sd_test_get_name(a_test));
+    log4c_appender_t* appender1 = log4c_appender_get("appender1");
+    log4c_appender_t* appender2 = log4c_appender_get("appender2");
+    test_category_udata_t *test_udata = sd_test_get_udata(a_test);
+
+    log4c_appender_set_udata(appender, test_udata->out);
+    log4c_appender_set_udata(appender1, test_udata->out);
+    log4c_appender_set_udata(appender2, test_udata->out);
+
+    return 1;
+}
+
+/******************************************************************************/
 int main(int argc, char* argv[])
 {    
   int ret;
@@ -207,14 +235,7 @@ int main(int argc, char* argv[])
   sub1 = log4c_category_get("sub1");
   sun1sub2 = log4c_category_get("sub1.sub2"); 
 
-  fprintf(stderr, 
-	  "\nNote: there's a known issue with this program double closing \n"\
-	  "the test file pointer.  This is because the test shares the \n" \
-	  "file with the log4c stream appender and they both close it on \n"\
-	  "exiting.  In the context here this error is benign. \n" \
-	  "The stream2 appender does not have this issue as it will not \n" \
-	  "close a passed-in file pointer on exit.\n\n");
-  
+    sd_test_set_udata(t, &test_udata);
     sd_test_add(t, test0);
     sd_test_add(t, test00);
     sd_test_add(t, test1);
@@ -222,6 +243,10 @@ int main(int argc, char* argv[])
     sd_test_add(t, test3);
     sd_test_add(t, test4);
     sd_test_add(t, test5);
+    /* The test shares the file with the log4c stream appender and they would
+     *  be both closed on exiting. This will restore original file descriptors
+     *  in appenders to prevent double closing. */
+    sd_test_add(t, test_restore);
 
     ret = sd_test_run(t, argc, argv);
 

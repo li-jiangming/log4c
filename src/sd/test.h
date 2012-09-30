@@ -39,6 +39,9 @@ extern FILE* sd_test_err(sd_test_t* a_this);
 extern int sd_test_run(sd_test_t* a_this, int argc, char* argv[]);
 extern int sd_test_add(sd_test_t* a_this, sd_test_func_t a_func);
 
+extern void* sd_test_get_udata(sd_test_t* a_this);
+extern void sd_test_set_udata(sd_test_t* a_this, void* udata);
+
 __SD_END_DECLS
 
 #endif
