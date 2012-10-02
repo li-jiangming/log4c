@@ -80,8 +80,8 @@ int g_noscreen_appenders = 0;
 long g_num_msgs = NUM_MSGS;
 long g_msgsize = MSG_SIZE;
 
-static log4c_category_t* mmap = NULL;
-static log4c_category_t* stream = NULL;
+static log4c_category_t* catmmap = NULL;
+static log4c_category_t* catstream = NULL;
 static log4c_category_t* catstream2 = NULL;
 static log4c_category_t* catstream_file = NULL;
 
@@ -145,8 +145,8 @@ int main(int argc, char* argv[]){
 	/*
 	 * Get some categories 
 	*/
-    mmap = log4c_category_get("mmap");
-    stream = log4c_category_get("stream");
+    catmmap = log4c_category_get("mmap");
+    catstream = log4c_category_get("stream");
   
     catstream2 = log4c_category_get("stream2");
     catstream_file = log4c_category_get("stream_file");
@@ -160,8 +160,8 @@ int main(int argc, char* argv[]){
 	 * Configure the categories and appenders
 	*/
     log4c_appender_set_type(mmap_appender, log4c_appender_type_get("mmap"));
-    log4c_category_set_appender(mmap, mmap_appender);
-    log4c_category_set_appender(stream, stream_appender);
+    log4c_category_set_appender(catmmap, mmap_appender);
+    log4c_category_set_appender(catstream, stream_appender);
 
     log4c_appender_set_type(stream2_appender,
 			    log4c_appender_type_get("stream2"));
@@ -204,7 +204,7 @@ int main(int argc, char* argv[]){
 		*/
 		start = my_utime();
 		for (i = 0; i < g_num_msgs; i++){
-			log4c_category_error(stream, "%s", buffer);
+			log4c_category_error(catstream, "%s", buffer);
 		}	
 		stop = my_utime();
 		display_time("fprintf", start, stop, (stop-start),
@@ -219,7 +219,7 @@ int main(int argc, char* argv[]){
 	 * null calls to log4c--so it does nothing but is safe.
 	*/
 	start = my_utime();
-	for (i = 0; i < g_num_msgs; i++){ log4c_category_error(mmap, "%s", buffer);}
+	for (i = 0; i < g_num_msgs; i++){ log4c_category_error(catmmap, "%s", buffer);}
 	stop = my_utime();
 	display_time("mmap", start, stop, (stop-start), 
 		(stop-start)/g_num_msgs);
