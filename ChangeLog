@@ -10,6 +10,9 @@
 
 	* configure.in: prep for release 1.2.2
 
+	* tests/log4c/Makefile.am: missing test reference files in
+	distribution
+
 2012-09-30  František Dvořák  <valtri@civ.zcu.cz>
 
 	* configure.in: missing macro AC_PROG_CXX
