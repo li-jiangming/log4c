@@ -1,3 +1,15 @@
+2012-10-02  František Dvořák  <valtri@civ.zcu.cz>
+
+	* tests/log4c/bench.c: fix build of the tests on FreeBSD
+
+	* README, config/gethostname.m4, configure.in, examples/Makefile.am,
+	examples/application_1.c, examples/application_2.c,
+	examples/application_3.c, src/log4c/Makefile.am,
+	src/log4c/config-win32.h, src/log4c/logging_event.h:
+	MinGW port
+
+	* configure.in: prep for release 1.2.2
+
 2012-09-30  František Dvořák  <valtri@civ.zcu.cz>
 
 	* configure.in: missing macro AC_PROG_CXX
