@@ -27,6 +27,7 @@
 #include "log4c.h"
 
 #ifdef _WIN32
+#ifndef __MINGW32__
 int gettimeofday(struct timeval* tp, void* tzp) {
   DWORD t;
   t = timeGetTime();
@@ -35,6 +36,7 @@ int gettimeofday(struct timeval* tp, void* tzp) {
   /* 0 indicates that the call succeeded. */
   return 0;
 }
+#endif
 
 int sleep(DWORD t){
   

@@ -14,6 +14,8 @@
 #include <windows.h>
 #include <winsock.h>
 
+#ifndef __MINGW32__
+
 #undef LOG4C_API
 #ifdef LOG4C_EXPORTS
 #    define LOG4C_API         __declspec(dllexport)
@@ -26,6 +28,8 @@
 #    define LOG4C_DATA        __declspec(dllexport)
 #else
 #    define LOG4C_DATA       extern __declspec(dllimport)
+#endif
+
 #endif
 
 

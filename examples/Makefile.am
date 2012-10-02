@@ -25,5 +25,6 @@ application_2_LDADD = \
 application_3_LDADD = \
 	liblog4c_userloc.la \
 	liblog4c_examples.la \
-	$(top_builddir)/src/log4c/liblog4c.la
+	$(top_builddir)/src/log4c/liblog4c.la \
+	$(GETHOSTNAME_LIB)
 

@@ -23,7 +23,7 @@
 #include <log4c/defs.h>
 #include <log4c/buffer.h>
 #include <log4c/location_info.h>
-#ifndef _WIN32
+#if !defined(_WIN32) || defined(__MINGW32__)
 #include <sys/time.h>
 #endif
 
@@ -56,7 +56,7 @@ typedef struct
 /* ok, this is probably not a good way to do it--should define a common type here
 and have the base acessor function do the mapping
 */
-#ifndef _WIN32
+#if !defined(_WIN32) || defined(__MINGW32__)
     struct timeval evt_timestamp;
 #else
     FILETIME evt_timestamp;

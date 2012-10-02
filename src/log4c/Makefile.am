@@ -10,7 +10,6 @@ liblog4c_la_SOURCES = \
 	appender_type_stream.c \
 	appender_type_stream2.c \
 	appender_type_syslog.c \
-	appender_type_mmap.c \
 	layout_type_basic.c \
 	layout_type_dated.c \
 	layout_type_basic_r.c \
@@ -25,7 +24,11 @@ liblog4c_la_SOURCES = \
 if WITH_ROLLINGFILE
  liblog4c_la_SOURCES += appender_type_rollingfile.c \
                           rollingpolicy.c rollingpolicy_type_sizewin.c
-endif  
+endif
+
+if WITH_MMAP
+liblog4c_la_SOURCES += appender_type_mmap.c
+endif
 
 liblog4c_la_LDFLAGS = -version-info @LT_VERSION@
 liblog4c_la_LIBADD  = ../sd/liblog4c_sd.la
