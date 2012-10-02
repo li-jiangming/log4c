@@ -44,7 +44,9 @@ test_big_SOURCES = test_big.c
 test_big_LDADD = $(top_builddir)/src/log4c/liblog4c.la
 
 EXTRA_DIST = \
-        test_category.ref \
+	test_big.ref \
+	test_category.ref \
+	test_layout_r.ref \
 	test_rc.in \
 	test_rc.ref
 
