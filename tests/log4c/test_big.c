@@ -7,6 +7,10 @@
  * This test logs into /dev/null.
  */
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include <stdlib.h>
 
 #include <log4c.h>

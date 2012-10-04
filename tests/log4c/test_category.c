@@ -19,6 +19,10 @@ static const char version[] = "$Id$";
  *
  */
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include <log4c/appender.h>
 #include <log4c/layout.h>
 #include <log4c/category.h>
