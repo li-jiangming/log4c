@@ -89,21 +89,6 @@ $ make install
 Checkout the @c INSTALL file for installation and the generated doxygen
 documentation for more information.
 
-@subsection installation_rpm Using RPMs
-
-FC7 RPMs on SourceForge:
-@li <a href="http://prdownloads.sourceforge.net/log4c/log4c-@VERSION@-1.i386.rpm">log4c-@VERSION@-1.i386.rpm</a>
-@li <a href="http://prdownloads.sourceforge.net/log4c/log4c-devel-@VERSION@-1.i386.rpm">log4c-devel-@VERSION@-1.i386.rpm</a>
-@li <a href="http://prdownloads.sourceforge.net/log4c/log4c-doc-@VERSION@-1.i386.rpm">log4c-doc-@VERSION@-1.i386.rpm</a>
-
-The following command install the log4c RPMs :
-
-@code
-
-$ sudo rpm -Uvh log4c-@VERSION@.i386.rpm log4c-devel-@VERSION@.i386.rpm
-
-@endcode
-
 @section config Configuration
 
 @subsection conf_files Configuration files
@@ -140,9 +125,9 @@ versions will handle multple appenders per category.
 @li The @c <layout> element has 2 possible attributes: the layout @c "name" and
 the layout @c "type".
 
-Here's the default @c log4crc configuration file:
+Here's the @c log4crc configuration file example:
 
-@include log4crc
+@include log4crc.sample
 
 This initial version of the log4c configuration file syntax is quite
 different from log4j. XML seemed the best choice to keep the log4j

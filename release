@@ -64,11 +64,12 @@ popd
 
 #
 # Resync the docs
-# rsync -av --delete log4c-1.2.1/build/doc/html/ your_username@shell.sf.net:/home/groups/l/lo/log4c/htdocs/
+# ssh your_username,log4c@shell.sf.net create
+# rsync -av --delete $fname/build/doc/html/ your_username,log4c@shell.sf.net:/home/project-web/log4c/htdocs/
 #
 
 #
 # Upload the new file and create the release
 #
-# https://sourceforge.net/docman/display_doc.php?docid=6445&group_id=1
+# https://sourceforge.net/projects/log4c/files/log4c/
 #
