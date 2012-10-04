@@ -1,3 +1,17 @@
+2012-10-04  František Dvořák  <valtri@civ.zcu.cz>
+
+	* release, doc/main.doc.in: update documentation
+
+	* config/va_copy.m4, configure.in, examples/example_formatters.c,
+	examples/helloworld/helloworld.c, examples/helloworld1/helloworld1.c,
+	examples/userloc_formatter.c, src/log4c/logging_event.c,
+	src/sd/sprintf.c, tests/log4c/test_big.c, tests/log4c/test_category.c,
+	tests/log4c/test_layout_r.c, tests/log4c/test_rc.c,
+	tests/log4c/test_stream2.c:
+	build with C89 compiler (but at least __va_copy is still required)
+
+	* ChangeLog: log4c-1.2.2
+
 2012-10-02  František Dvořák  <valtri@civ.zcu.cz>
 
 	* tests/log4c/bench.c: fix build of the tests on FreeBSD
