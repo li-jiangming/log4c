@@ -217,6 +217,7 @@ AM_CONDITIONAL(USE_EXPAT, test  "x$use_expat" = "xyes" )
 AC_CONFIG_FILES([
     Makefile
     log4c-config
+    log4c.pc
     log4crc.sample
     log4c.spec
     config/Makefile

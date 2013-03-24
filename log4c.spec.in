@@ -49,6 +49,7 @@ make
 %install
 rm -rf %{buildroot}
 %makeinstall
+rm %{buildroot}%{_libdir}/*.la
 
 %clean
 rm -rf %{buildroot}
@@ -67,8 +68,8 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %{_bindir}/*
 %{_includedir}/*
+%{_libdir}/pkgconfig/*
 %{_libdir}/*.a
-%{_libdir}/*.la
 %{_libdir}/*.so
 %{_datadir}/aclocal/*
 %{_mandir}/*

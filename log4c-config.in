@@ -16,7 +16,6 @@ Known values for OPTION are:
   --prefix		show LOG4C installation prefix 
   --libs		print library linking information
   --cflags		print pre-processor and compiler flags
-  --plugin_path		print plugin directory
   --help		display this help and exit
   --version		output version information
 

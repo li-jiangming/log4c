@@ -22,6 +22,11 @@ m4data_DATA = log4c.m4
 
 sysconf_DATA = log4crc.sample
 
+dist_man_MANS = log4c-config.1
+
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = log4c.pc
+
 rpm: dist
 	mkdir -p $(distdir)/rpmbuild/{BUILD,RPMS,SOURCES,SRPMS,SPECS}
 	mkdir $(distdir)/rpmbuild/RPMS/i386
