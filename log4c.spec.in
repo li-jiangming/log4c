@@ -9,7 +9,7 @@ Version: 	@VERSION@
 Release: 	%rel
 
 Summary: 	Log for C
-License:	LGPL
+License:	LGPLv2+
 Group:		Development/Libraries
 Vendor:		Cedric Le Goater <legoater@free.fr>
 Packager:	Cedric Le Goater <legoater@free.fr>
@@ -23,7 +23,7 @@ Requires: 	/sbin/ldconfig
 %name is a Logging FrameWork for C, as Log4j or Log4Cpp.
 
 %package devel
-Summary: development tools for %name
+Summary: Development tools for %name
 Group: Development/Libraries
 Requires: %name = %version
 
@@ -72,7 +72,7 @@ rm -rf %{buildroot}
 %{_libdir}/*.a
 %{_libdir}/*.so
 %{_datadir}/aclocal/*
-%{_mandir}/*
+%{_mandir}/*/*
 
 %files doc
 %defattr(-,root,root)
