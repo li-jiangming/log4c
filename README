@@ -70,8 +70,8 @@ This is the distribution of Log4C (last updated 13 Nov 2006)
   We recommend that you do not build in the source directories themselves;
   rather make a build directory into which the configure script will generate
   the Makefiles and build the library and binaries in there. This is better
-  because it allows you to seperate the source from the binaries and also to
-  mantain a compiled version of Log4C for different platforms--make a build
+  because it allows you to separate the source from the binaries and also to
+  maintain a compiled version of Log4C for different platforms--make a build
   directory for each of the platforms you support and run configure on each of
   your build machines.
   
@@ -130,7 +130,7 @@ This is the distribution of Log4C (last updated 13 Nov 2006)
         --enable-debug --enable-doc
 
    This will define the __SD_DEBUG__ variable at compile time. Note that you
-   still need to define the SD_ERROR and SD_DEBUG envronment variables at run
+   still need to define the SD_ERROR and SD_DEBUG environment variables at run
    time to actually see the error/debug output.
 
    Type '../log4c/configure --help' for a list of all the configure
