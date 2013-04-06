@@ -1,3 +1,16 @@
+1.2.3	2013-04-06:
+
+This release contains important bugfix in syslog appender. There are also
+updates for better integration with recent Linux distributions:
+
+* use UTF-8 encoding in AUTHORS file
+* update rpm packaging
+* update FSF address in license and headers
+* manpage for log4c-config
+* pkgconfig file
+* fixed memory leaks in log4c_ini()/log4c_fini()
+* use more recent autotools
+
 1.2.2	2012-10-05:
 
 This is mainly bugfix and portability release, addressing collected bugreports

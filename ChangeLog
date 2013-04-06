@@ -1,3 +1,37 @@
+2013-04-06  František Dvořák  <valtri@civ.zcu.cz>
+
+	* README: typos
+
+	* Makefile.am, configure.in: work with newer autotools
+
+	* bootstrap: warn when autoconf older than 2.69 (required for aarch64,
+	Fedora bug #926084
+
+	* src/log4c/appender.c, src/log4c/appender.h, src/log4c/init.c,
+	src/log4c/layout.c, src/log4c/layout.h, src/log4c/rollingpolicy.c,
+	src/log4c/rollingpolicy.h:
+	memory leaks in log4c_fini (SF patch #3605649)
+
+	* release: update release cookbook
+
+	* src/log4c/appender_type_syslog.c: fix syslog appender - missing
+	format string for syslog() lead to crashes
+
+	* NEWS: create the NEWS file
+
+	* Changelog, NEWS, configure.in: log4c-1.2.3
+
+2013-03-25  František Dvořák  <valtri@civ.zcu.cz>
+
+	* Makefile.am, configure.in, log4c-config.1, log4c-config.in,
+	log4c.pc.in, log4c.spec.in:
+	manpage for log4c-config, add development files (pkgconfig), remove
+	libtool files from rpm
+
+	* COPYING, src/sd/malloc.c: update FSF address
+
+	* AUTHORS, log4c.spec.in: rpmlint fixes, use UTF-8 encoding
+
 2012-10-04  František Dvořák  <valtri@civ.zcu.cz>
 
 	* release, doc/main.doc.in: update documentation
