@@ -1,3 +1,5 @@
+ACLOCAL_AMFLAGS=-I config
+
 if DOC
 DOC_SUBDIR = doc
 endif
