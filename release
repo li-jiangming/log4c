@@ -1,3 +1,12 @@
+# Modify versions in configure.in:
+# - LOG4C_MAJOR_VERSION
+# - LOG4C_MINOR_VERSION
+# - LOG4C_MICRO_VERSION
+# - LT_VERSION
+
+# Tag the new release, for example:
+# cvs tag log4c_1_2_2
+
 #
 # Get log4c version and contruct directory name
 #
@@ -69,7 +78,11 @@ popd
 #
 
 #
-# Upload the new file and create the release
+# Upload the new tarball and README with release notes, create the release
 #
 # https://sourceforge.net/projects/log4c/files/log4c/
+#
+
+#
+# Announce the release on log4c-devel mailinglist.
 #
