@@ -69,7 +69,7 @@ static int syslog_append(log4c_appender_t*	this,
 	facility = LOG_USER;
 
     syslog(log4c_to_syslog_priority(a_event->evt_priority) | facility, 
-	   a_event->evt_rendered_msg); 
+	   "%s", a_event->evt_rendered_msg);
     return 0;
 }
 
