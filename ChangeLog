@@ -21,6 +21,8 @@
 
 	* Changelog, NEWS, configure.in: log4c-1.2.3
 
+	* log4crc.sample.in: remove version from the sample config file
+
 2013-03-25  František Dvořák  <valtri@civ.zcu.cz>
 
 	* Makefile.am, configure.in, log4c-config.1, log4c-config.in,
