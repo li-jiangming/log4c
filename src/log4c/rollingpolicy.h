@@ -193,6 +193,7 @@ LOG4C_API void log4c_rollingpolicy_print(const log4c_rollingpolicy_t* a_this,
 FILE* a_stream);
 
 LOG4C_API int log4c_rollingpolicy_is_initialized(log4c_rollingpolicy_t* a_this);
+LOG4C_API void log4c_rollingpolicy_types_free(void);
 LOG4C_API void log4c_rollingpolicy_types_print(FILE *fp);
 /**
  * @internal

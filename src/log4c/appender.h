@@ -194,7 +194,11 @@ LOG4C_API int log4c_appender_close(log4c_appender_t* a_appender);
  **/
 LOG4C_API void log4c_appender_print(const log4c_appender_t* a_appender, 
 				 FILE* a_stream);
-     
+/**
+ * free all appender types
+ */
+LOG4C_API void log4c_appender_types_free(void);
+
 /**
  * prints all the current registered appender types on a stream
  *

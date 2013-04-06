@@ -41,6 +41,13 @@ static sd_hash_t* log4c_rollingpolicy_types(void){
   return types;
 }
 
+extern void log4c_rollingpolicy_types_free( void ) {
+	sd_hash_t * types = log4c_rollingpolicy_types();
+	if ( types != NULL ) {
+		sd_hash_delete( types );
+	}
+}
+
 extern void log4c_rollingpolicy_types_print(FILE *fp)
 {
   sd_hash_iter_t* i;

@@ -262,17 +262,20 @@ extern int log4c_fini(void)
 	sd_factory_delete(log4c_appender_factory);
 	log4c_appender_factory = NULL;
     }
+    log4c_appender_types_free();
   
     if (log4c_layout_factory) {
 	sd_factory_delete(log4c_layout_factory);
 	log4c_layout_factory = NULL;
     }
+    log4c_layout_types_free();
   
 #ifdef WITH_ROLLINGFILE
     if (log4c_rollingpolicy_factory) {
 	sd_factory_delete(log4c_rollingpolicy_factory);
 	log4c_rollingpolicy_factory = NULL;
     }
+    log4c_rollingpolicy_types_free();
 #endif
     
 #ifdef __SD_DEBUG__

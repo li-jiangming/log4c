@@ -32,10 +32,6 @@ struct __log4c_appender
 
 sd_factory_t* log4c_appender_factory = NULL;
 
-/**
-* @bug log4c_appender_type hash is not freed in destructor
-*/
-
 /*******************************************************************************/
 static sd_hash_t* log4c_appender_types(void)
 {
@@ -45,6 +41,13 @@ static sd_hash_t* log4c_appender_types(void)
     types = sd_hash_new(20, NULL);
   
   return types;
+}
+
+extern void log4c_appender_types_free( void ) {
+	sd_hash_t * types = log4c_appender_types();
+	if ( types != NULL ) {
+		sd_hash_delete( types );
+	}
 }
 
 extern void log4c_appender_types_print(FILE *fp)

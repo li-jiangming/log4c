@@ -159,6 +159,11 @@ LOG4C_API void log4c_layout_print(
     const log4c_layout_t* a_layout, FILE* a_stream);
 
 /**
+ * free all layout types
+ */
+LOG4C_API void log4c_layout_types_free(void);
+
+/**
  * prints all the current registered layout types on a stream
  *
  * @param fp the stream
