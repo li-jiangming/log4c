@@ -31,8 +31,10 @@ static const char version[] = "$Id$";
 #include <rollingpolicy_type_sizewin.h>
 #include <layout_type_basic.h>
 #include <layout_type_dated.h>
+#include <layout_type_dated_local.h>
 #include <layout_type_basic_r.h>
 #include <layout_type_dated_r.h>
+#include <layout_type_dated_local_r.h>
 
 #if defined(__LOG4C_DEBUG__) && defined(__GLIBC__)
 #include <mcheck.h>
@@ -41,8 +43,10 @@ static const char version[] = "$Id$";
 static const log4c_layout_type_t * const layout_types[] = {
     &log4c_layout_type_basic,
     &log4c_layout_type_dated,
+    &log4c_layout_type_dated_local,
     &log4c_layout_type_basic_r,
-    &log4c_layout_type_dated_r    
+    &log4c_layout_type_dated_r,
+    &log4c_layout_type_dated_local_r,
 };
 static size_t nlayout_types = sizeof(layout_types) / sizeof(layout_types[0]);
 
