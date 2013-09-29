@@ -7,9 +7,7 @@ docfiles = \
 	$(top_srcdir)/COPYING \
 	$(top_srcdir)/ChangeLog
 
-.PHONY: doxygen
-
-targets = doxygen
+targets = doxygen.stamp
 
 if HAVE_LATEX
 targets += $(PACKAGE).pdf
@@ -18,8 +16,9 @@ endif
 
 all-local: $(targets)
 
-doxygen: Doxyfile main.doc
-	@DOXYGEN@	
+doxygen.stamp: Doxyfile main.doc
+	@DOXYGEN@
+	touch $@
 
 #
 # If you tell Doxygen to generate latex via the GENERATE_LATEX option
@@ -55,5 +54,6 @@ uninstall-local:
 	rm -rf $(DESTDIR)$(docdir)/*
 
 clean-local:
-	$(RM) -r latex man html $(PACKAGE).pdf doxygen.log
+	$(RM) -r latex man html $(PACKAGE).pdf doxygen.log doxygen.stamp
 
+.NOTPARALLEL:
