@@ -37,12 +37,12 @@ __SD_BEGIN_DECLS
  * Same as fprintf(3) with auto-allocation of the resulting buffer,
  * and output directly in a file, not a stream.
  */
-extern int sd_fprintf(int fd, const char *fmt, ...);
+extern int sd_fprintf(int fd, const char *fmt, ...) SD_ATTRIBUTE((format(printf, 2, 3)));
 
 /**
  * Same as sprintf(3) with auto-allocation of the resulting buffer.
  */
-extern char* sd_sprintf(const char* a_fmt, ...);
+extern char* sd_sprintf(const char* a_fmt, ...) SD_ATTRIBUTE((format(printf, 1, 2)));
 
 /**
  * Same as vsprintf(3) with auto-allocation of the resulting buffer.
@@ -50,7 +50,7 @@ extern char* sd_sprintf(const char* a_fmt, ...);
 extern char* sd_vsprintf(const char* a_fmt, va_list a_arg);
 
 #if defined(__osf__)
-extern int snprintf(char* str, size_t size, const char* fmt, ...);
+extern int snprintf(char* str, size_t size, const char* fmt, ...) SD_ATTRIBUTE((format(printf, 3, 4)));
 extern int vsnprintf(char* str, size_t size, const char* fmt, va_list arg);
 #endif
 

@@ -7,6 +7,7 @@ typedef struct {
 #define log4c_category_log_userinfo(a_category, a_void, a_priority, a_format, args...) \
   helper(a_category, __FILE__, __LINE__, __FUNCTION__, a_void, a_priority, a_format , ## args );
 
+LOG4C_ATTRIBUTE((format(printf, 7, 8)))
 static inline void helper(
     const log4c_category_t* a_category,
     char* file,

@@ -43,4 +43,11 @@
 #define OLD_VARIADIC_MACRO 1
 #endif
 
+/* GNU C attribute feature for public API */
+#ifdef __GNUC__
+#define LOG4C_ATTRIBUTE(X) __attribute__(X)
+#else
+#define LOG4C_ATTRIBUTE(X)
+#endif
+
 #endif /* __log4c_defs_h */

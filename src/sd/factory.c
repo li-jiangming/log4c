@@ -6,6 +6,9 @@ static const char version[] = "$Id$";
 * Copyright 2001-2003, Meiosys (www.meiosys.com). All rights reserved.
 * See the COPYING file for the terms of usage and distribution.
 */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
 
 #include <sd/factory.h>
 #include <stdlib.h>

@@ -16,4 +16,12 @@
 # define __SD_END_DECLS
 #endif
 
+/* GNU C attribute feature,
+ * for the public API macro LOG4C_ATTRIBUTE is used instead */
+#ifdef __GNUC__
+#define SD_ATTRIBUTE(X) __attribute__(X)
+#else
+#define SD_ATTRIBUTE(X)
+#endif
+
 #endif

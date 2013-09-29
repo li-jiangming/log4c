@@ -366,7 +366,8 @@ static LOG4C_INLINE void log4c_category_vlog(const log4c_category_t* a_category,
  * in the log file.
  * @param ... The arguments for a_format 
  **/  
-static LOG4C_INLINE void log4c_category_log(const log4c_category_t* a_category,
+LOG4C_INLINE LOG4C_ATTRIBUTE((format(printf, 3, 4)))
+static void log4c_category_log(const log4c_category_t* a_category,
 				      int a_priority,
 				      const char* a_format,
 				      ...)
@@ -388,7 +389,8 @@ static LOG4C_INLINE void log4c_category_log(const log4c_category_t* a_category,
  * in the log file.
  * @param ... The arguments for a_format 
  **/  
-static LOG4C_INLINE void log4c_category_log_locinfo(
+LOG4C_INLINE LOG4C_ATTRIBUTE((format(printf, 4, 5)))
+static void log4c_category_log_locinfo(
     const log4c_category_t* a_category,
     const log4c_location_info_t* a_locinfo, 
     int a_priority,
@@ -410,7 +412,8 @@ static LOG4C_INLINE void log4c_category_log_locinfo(
  * in the log file.
  * @param ... The arguments for a_format 
  **/  
-static LOG4C_INLINE void log4c_category_fatal(const log4c_category_t* a_category,
+LOG4C_INLINE LOG4C_ATTRIBUTE((format(printf, 2, 3)))
+static void log4c_category_fatal(const log4c_category_t* a_category,
 					const char* a_format,
 					...)
 {
@@ -429,7 +432,8 @@ static LOG4C_INLINE void log4c_category_fatal(const log4c_category_t* a_category
  * in the log file.
  * @param ... The arguments for a_format 
  **/  
-static LOG4C_INLINE void log4c_category_alert(const log4c_category_t* a_category,
+LOG4C_INLINE LOG4C_ATTRIBUTE((format(printf, 2, 3)))
+static void log4c_category_alert(const log4c_category_t* a_category,
 					const char* a_format,
 					...)
 {
@@ -448,7 +452,8 @@ static LOG4C_INLINE void log4c_category_alert(const log4c_category_t* a_category
  * in the log file.
  * @param ... The arguments for a_format 
  **/  
-static LOG4C_INLINE void log4c_category_crit(const log4c_category_t* a_category,
+LOG4C_INLINE LOG4C_ATTRIBUTE((format(printf, 2, 3)))
+static void log4c_category_crit(const log4c_category_t* a_category,
 				       const char* a_format,
 				       ...)
 {
@@ -467,7 +472,8 @@ static LOG4C_INLINE void log4c_category_crit(const log4c_category_t* a_category,
  * in the log file.
  * @param ... The arguments for a_format 
  **/  
-static LOG4C_INLINE void log4c_category_error(const log4c_category_t* a_category,
+LOG4C_INLINE LOG4C_ATTRIBUTE((format(printf, 2, 3)))
+static void log4c_category_error(const log4c_category_t* a_category,
 					const char* a_format,
 					...)
 {
@@ -486,7 +492,8 @@ static LOG4C_INLINE void log4c_category_error(const log4c_category_t* a_category
  * in the log file.
  * @param ... The arguments for a_format 
  **/  
-static LOG4C_INLINE void log4c_category_warn(const log4c_category_t* a_category,
+LOG4C_INLINE LOG4C_ATTRIBUTE((format(printf, 2, 3)))
+static void log4c_category_warn(const log4c_category_t* a_category,
 				       const char* a_format,
 				       ...)
 {
@@ -505,7 +512,8 @@ static LOG4C_INLINE void log4c_category_warn(const log4c_category_t* a_category,
  * in the log file.
  * @param ... The arguments for a_format 
  **/  
-static LOG4C_INLINE void log4c_category_notice(const log4c_category_t* a_category,
+LOG4C_INLINE LOG4C_ATTRIBUTE((format(printf, 2, 3)))
+static void log4c_category_notice(const log4c_category_t* a_category,
 					 const char* a_format,
 					 ...)
 {
@@ -524,7 +532,8 @@ static LOG4C_INLINE void log4c_category_notice(const log4c_category_t* a_categor
  * in the log file.
  * @param ... The arguments for a_format 
  **/  
-static LOG4C_INLINE void log4c_category_info(const log4c_category_t* a_category,
+LOG4C_INLINE LOG4C_ATTRIBUTE((format(printf, 2, 3)))
+static void log4c_category_info(const log4c_category_t* a_category,
 				       const char* a_format,
 				       ...)
 {
@@ -543,7 +552,8 @@ static LOG4C_INLINE void log4c_category_info(const log4c_category_t* a_category,
  * in the log file.
  * @param ... The arguments for a_format 
  **/  
-static LOG4C_INLINE void log4c_category_debug(const log4c_category_t* a_category,
+LOG4C_INLINE LOG4C_ATTRIBUTE((format(printf, 2, 3)))
+static void log4c_category_debug(const log4c_category_t* a_category,
 					const char* a_format,
 					...)
 {
@@ -562,7 +572,8 @@ static LOG4C_INLINE void log4c_category_debug(const log4c_category_t* a_category
  * in the log file.
  * @param ... The arguments for a_format 
  **/  
-static LOG4C_INLINE void __log4c_category_trace(const log4c_category_t* a_category,
+LOG4C_INLINE LOG4C_ATTRIBUTE((format(printf, 2, 3)))
+static void __log4c_category_trace(const log4c_category_t* a_category,
 					  const char* a_format,
 					  ...)
 {
