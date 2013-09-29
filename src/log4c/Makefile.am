@@ -20,9 +20,9 @@ liblog4c_la_SOURCES = \
 	appender.c \
 	layout.c \
 	category.c
-  
+
 if WITH_ROLLINGFILE
- liblog4c_la_SOURCES += appender_type_rollingfile.c \
+liblog4c_la_SOURCES += appender_type_rollingfile.c \
                           rollingpolicy.c rollingpolicy_type_sizewin.c
 endif
 
@@ -30,7 +30,7 @@ if WITH_MMAP
 liblog4c_la_SOURCES += appender_type_mmap.c
 endif
 
-liblog4c_la_LDFLAGS = -version-info @LT_VERSION@
+liblog4c_la_LDFLAGS = -version-info @LT_VERSION@ $(LDFLAGS_NOUNDEFINED)
 liblog4c_la_LIBADD  = ../sd/liblog4c_sd.la
 
 pkginclude_HEADERS = \

@@ -43,11 +43,10 @@ int gettimeofday(struct timeval* tp, void* tzp) {
 }
 #endif
 
-int sleep(DWORD t){
-  
-	Sleep(1000*t);
-	return(0);
-}
+#if !defined(HAVE_SLEEP) || !HAVE_DECL_SLEEP
+#define sleep(x) Sleep(x*1000)
+#endif
+
 #endif /* _WIN32 */
 
 

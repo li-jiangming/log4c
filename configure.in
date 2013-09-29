@@ -52,9 +52,14 @@ case "$host" in
     *-hp-hpux*)
 	CFLAGS="-g"
 	;;
+    *-mingw*)
+	dnl required to create shared libraries
+	LDFLAGS_NOUNDEFINED="-no-undefined"
+	;;
     *)
 	;;
 esac
+AC_SUBST([LDFLAGS_NOUNDEFINED])
 
 if test "x$GCC" = "xyes"; then
   case " $CFLAGS " in
@@ -114,9 +119,11 @@ AM_CONDITIONAL(TEST, test x$enable_test = xyes)
 # Checks for header files.
 #
 AC_HEADER_STDC
-AC_CHECK_HEADERS([fcntl.h inttypes.h langinfo.h limits.h stddef.h stdint.h \
+AC_CHECK_HEADERS([alloc.h fcntl.h inttypes.h langinfo.h limits.h malloc.h stddef.h stdint.h \
 stdlib.h string.h sys/time.h syslog.h unistd.h stdarg.h varargs.h getopt.h \
 pthread.h])
+AC_CHECK_FUNCS([sleep])
+AC_CHECK_DECLS([sleep], [], [], [[#include <unistd.h>]])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
@@ -127,9 +134,11 @@ AC_STRUCT_TM
 
 # Checks for library functions.
 AC_FUNC_ALLOCA
-AC_FUNC_MALLOC
+dnl nonportable or buggy (we want cross-compilation)
+dnl AC_FUNC_MALLOC
 AC_FUNC_MMAP
-AC_FUNC_REALLOC
+dnl nonportable or buggy (we want cross-compilation)
+dnl AC_FUNC_REALLOC
 AC_FUNC_UTIME_NULL
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([gettimeofday memset munmap nl_langinfo strdup strerror strncasecmp strrchr strstr utime sbrk])

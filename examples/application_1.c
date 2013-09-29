@@ -36,13 +36,13 @@ int gettimeofday(struct timeval* tp, void* tzp) {
   /* 0 indicates that the call succeeded. */
   return 0;
 }
+
 #endif
 
-int sleep(DWORD t){
-  
-	Sleep(1000*t);
-	return(0);
-}
+#if !defined(HAVE_SLEEP) || !HAVE_DECL_SLEEP
+#define sleep(x) Sleep(x*1000)
+#endif
+
 #endif /* _WIN32 */
 
 int main(int argc, char** argv)

@@ -101,8 +101,7 @@ This is the distribution of Log4C (last updated 13 Nov 2006)
       CC=/usr/SUNWspro/bin/cc
 
   To cross-compile using MinGW:
-    $ ac_cv_func_realloc_0_nonnull=yes ac_cv_func_malloc_0_nonnull=yes \
-      ../log4c/configure \
+    $ ../log4c/configure \
          --enable-test --enable-doc \
          --host=i686-pc-mingw32 --build=x86_64-pc-linux-gnu
 

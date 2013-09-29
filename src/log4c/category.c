@@ -13,8 +13,10 @@ static const char version[] = "$Id$";
 
 #include <stdlib.h>
 #include <string.h>
-#ifdef  HAVE_ALLOCA_H
+#if defined(HAVE_ALLOCA_H)
 #include <alloca.h>
+#elif defined(HAVE_MALLOC_H)
+#include <malloc.h>
 #endif
 #include <sd/sprintf.h>
 #include <sd/malloc.h>

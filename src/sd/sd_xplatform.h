@@ -9,7 +9,6 @@
 #define __sd_xplatform_h
 
 #ifndef _WIN32
-#include <unistd.h>
 #include <sys/time.h>
 #include <sys/stat.h>
 #else
@@ -20,6 +19,9 @@
 #include <process.h>
 #endif
 
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#endif
 
 #ifdef HAVE_STDINT_H
 #       include <stdint.h>
@@ -87,11 +89,15 @@ int sd_stat_ctime(const char* path, time_t* time);
 #ifdef _WIN32
 #define snprintf _snprintf
 #define vsnprintf _vsnprintf
+#if !defined(HAVE_ALLOC_H) && defined(HAVE_MALLOC_H) && !defined(alloca)
 #define alloca _alloca
+#endif
 #define strncasecmp strnicmp
 #define strcasecmp stricmp
 #define YY_NO_UNISTD_H
+#if !defined(HAVE_SLEEP) || !HAVE_DECL_SLEEP
 #define sleep(x) Sleep(x*1000)
+#endif
 #endif
 
 
