@@ -51,7 +51,7 @@ static const char* test_format(
 {
     static char buffer[1024];
 
-    snprintf(buffer, sizeof(buffer), "logging %d bytes.\n",  strlen(a_event->evt_msg));
+    snprintf(buffer, sizeof(buffer), "logging %lu bytes.\n", strlen(a_event->evt_msg));
     return buffer;
 }
 

@@ -94,7 +94,7 @@ static void bench_init(int start) {
       }
       if ( g_usebuffer) {
 	if ( g_usemybuffer) {
-	  bench_log("  Using my buffer of adjusted size %d, mode '%s'\n", 
+	  bench_log("  Using my buffer of adjusted size %lu, mode '%s'\n",
 		    g_mybufadjustedsize, (g_bufmode == 1 ? "_IOFBF":"_IOLBF") );
 	  g_myfilebuffer = (char *)malloc(g_mybufadjustedsize);
 	  setvbuf(g_fp, g_myfilebuffer, (g_bufmode == 1 ? _IOFBF:_IOLBF),

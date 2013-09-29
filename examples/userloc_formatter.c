@@ -17,6 +17,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <log4c.h>
+/* using internal log4c debug function here,
+ * this is not belong to examples :-) */
+#include <sd/error.h>
 #include "application_3.h"
 
 /**********************************************************************

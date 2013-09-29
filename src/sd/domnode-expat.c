@@ -434,7 +434,7 @@ extern int sd_domnode_load(sd_domnode_t* this, const char* afilename)
     ret = sd_domnode_fread(this, fp);
 
     fclose(fp);
-    return 0;
+    return ret;
 }
 
 /******************************************************************************/
@@ -449,7 +449,7 @@ extern int sd_domnode_store(const sd_domnode_t* this, const char* afilename)
     ret = sd_domnode_fwrite(this, fp);
 
     fclose(fp);
-    return 0;
+    return ret;
 }
 
 /******************************************************************************/

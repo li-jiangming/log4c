@@ -201,7 +201,7 @@ extern int sd_test_run(sd_test_t* this, int argc, char* argv[])
         
         fprintf(sd_test_err(this), "%c", t ? '+' : '-');
         if (this->timed)
-            fprintf(sd_test_err(this), "%lld ", elapsed);
+            fprintf(sd_test_err(this), "%llu ", elapsed);
     }
     
     fprintf(sd_test_err(this), " %d/%d %s.\n", passed, this->size,

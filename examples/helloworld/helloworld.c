@@ -23,5 +23,5 @@ int main(int argc, char** argv){
       printf("log4c_fini() failed");
     }
   }
-  return 0;
+  return rc;
 }

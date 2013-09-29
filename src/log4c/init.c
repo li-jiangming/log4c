@@ -228,20 +228,16 @@ void log4c_reread(void)
 /******************************************************************************/
 extern int log4c_fini(void)
 {
-    int rc = 0;
-
     /* Some acceptable use of goto here to avoid lots of nested ifs
      * when we need a quick exit
      */
     sd_debug("log4c_fini[");
     if (log4c_rc->config.nocleanup){
 	sd_debug("not cleaning up--nocleanup specified in conf");
-	rc = -1;
 	goto log4c_fini_exit;
     }
   
     if (!log4c_is_init){
-	rc = 0;
 	sd_debug("not cleaning up--log4c not initialized");
 	goto log4c_fini_exit;
     }

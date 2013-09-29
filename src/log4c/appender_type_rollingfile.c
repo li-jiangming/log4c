@@ -130,8 +130,6 @@ static int rollingfile_append(log4c_appender_t* this,
 			 const log4c_logging_event_t* a_event)
 {
   rollingfile_udata_t* rfup = log4c_appender_get_udata(this); 
-  log4c_logging_event_t* my_event = 
-    (log4c_logging_event_t*)a_event;
   int rc = 0;
 
   sd_debug("rollingfile_append[");

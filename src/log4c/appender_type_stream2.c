@@ -133,12 +133,11 @@ static void stream2_free_udata(log4c_stream2_udata_t* s2up){
 
 static log4c_stream2_udata_t * stream2_get_or_make_udata(log4c_appender_t* this){
     log4c_stream2_udata_t *s2up;
-    int rc = 0;
 
     s2up = log4c_appender_get_udata(this);
 
     if ( !s2up) {
-	rc = stream2_init(this);
+	stream2_init(this);
     }
 
     return(stream2_get_udata(this));
