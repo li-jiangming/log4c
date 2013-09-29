@@ -12,6 +12,7 @@ static const char version[] = "$Id$";
 #include "config.h"
 #endif
 
+#include <log4c/init.h>
 #include <log4c/rc.h>
 #include <log4c/category.h>
 #include <sd/test.h>
@@ -68,12 +69,27 @@ static int test2(sd_test_t* a_test, int argc, char* argv[])
 
 /******************************************************************************/
 int main(int argc, char* argv[])
-{    
-    sd_test_t* t = sd_test_new(argc, argv);
+{
+    int ret;
+    sd_test_t* t;
+
+    /*
+     * initialize log4c to prevent memleaks
+     * (there is no "unload")
+     */
+    log4c_init();
+
+    t = sd_test_new(argc, argv);
 
     sd_test_add(t, test0);
     sd_test_add(t, test1);
     sd_test_add(t, test2);
 
-    return ! sd_test_run(t, argc, argv);
+    ret = sd_test_run(t, argc, argv);
+
+    sd_test_delete(t);
+
+    log4c_fini();
+
+    return !ret;
 }

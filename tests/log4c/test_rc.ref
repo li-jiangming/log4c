@@ -1,4 +1,6 @@
 => test #0 :
+factory[log4c_category_factory]:
+{ name:'root' priority:NOTICE additive:1 appender:'(nil)' parent:'(nil)' }
 
 
 
