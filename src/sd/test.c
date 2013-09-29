@@ -77,13 +77,13 @@ extern sd_test_t* sd_test_new(int a_argc, char* a_argv[])
     this->funcs = sd_calloc(MAX_NFUNC, sizeof(sd_test_func_t *));
 
     /*
-     * get rid of libtool frontend script
+     * Get rid of libtool frontend script. It is not always there (for example
+     * on FreeBSD) ==> get the basename first.
      */
-    ptr = strstr(a_argv[0], "lt-");
-    if (ptr)
-	this->name = ptr + 3;
-    else
-      this->name = a_argv[0];    
+    ptr = strrchr(a_argv[0], '/');
+    this->name = ptr ? ptr + 1 : a_argv[0];
+    ptr = strstr(this->name, "lt-");
+    if (ptr) this->name = ptr + 3;
 
     snprintf(this->ref_filename, sizeof(this->ref_filename), "%s.ref",
 	     this->name);

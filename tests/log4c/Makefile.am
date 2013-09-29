@@ -58,7 +58,7 @@ all-local: bench.mmap
 check-local: 
 	@for i in test_category test_layout_r test_rc test_big; do \
 	    LOG4C_PRIORITY=notice ./$$i || exit 1; \
-	    sed 's/udata:0x[0-9a-f]*/udata:0x111111111111/' $$i.out > $$i.out2; \
+	    sed -e 's/udata:0x0\([^0-9]\)/udata:(nil)\1/' -e 's/udata:0x[0-9a-f]*/udata:0x111111111111/' $$i.out > $$i.out2; \
 	    test -f $(srcdir)/$$i.ref && diff $$i.out2 $(srcdir)/$$i.ref || exit 1; \
 	done
 
