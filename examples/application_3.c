@@ -32,7 +32,7 @@ extern int init_examples_lib(void);
 extern int init_userloc_formatters(void);
 
 #ifdef _WIN32
-#ifndef __MINGW32__
+#if !defined(__MINGW32__) && !defined(__MINGW64__)
 int gettimeofday(struct timeval* tp, void* tzp) {
   DWORD t;
   t = timeGetTime();

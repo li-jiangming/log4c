@@ -38,7 +38,6 @@
 
 typedef void (*sd_malloc_handler_t)();
 
-static char*  first_break = NULL;
 static sd_malloc_handler_t handler  = NULL;
 
 static void *
@@ -48,6 +47,8 @@ fixup_null_alloc (n)
     void* p = 0;
 
 #ifdef HAVE_SBRK
+    static char*  first_break = NULL;
+
     if (n == 0)
 	p = malloc ((size_t) 1);
 

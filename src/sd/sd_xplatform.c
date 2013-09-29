@@ -5,6 +5,9 @@ static const char version[] = "$Id$";
  *
  * See the COPYING file for the terms of usage and distribution.
  */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
 
 #include <stdio.h>
 #include <string.h>
@@ -84,37 +87,14 @@ static const char version[] = "$Id$";
  	return (c);
  }
  
-/*****************************  gettimeofday *******************/
 
+#if !defined(_WIN32) || defined(__MINGW32__) || defined(__MINGW64__)
 
-#ifdef _WIN32
-
-#if 0 /* also in winsock[2].h */
-#define _TIMEVAL_DEFINED
-struct timeval {
-    long tv_sec;
-    long tv_usec;
-    long tv_usec;
-};
-#endif /* _TIMEVAL_DEFINED */
-
-int sd_gettimeofday(LPFILETIME lpft, void* tzp) {
-
-    if (lpft) {
-        GetSystemTimeAsFileTime(lpft);
-    }
-    /* 0 indicates that the call succeeded. */
-    return 0;
-}
-#endif /* _WIN32 */
+/* POSIX-like environment */
 
 /*
- * Placeholder for WIN32 version to get last changetime of a file
+ * Get last changetime of a file
  */
-#ifdef WIN32
-int sd_stat_ctime(const char* path, time_t* time)
-{ return -1; }
-#else
 int sd_stat_ctime(const char* path, time_t* time)
 {
 	struct stat astat;
@@ -126,6 +106,46 @@ int sd_stat_ctime(const char* path, time_t* time)
 	*time=astat.st_ctime;
 	return statret;
 }
+
+#if !defined(HAVE_GMTIME_R) || !HAVE_DECL_GMTIME_R
+/* non-thread-safe replacement */
+struct tm *sd_gmtime_r(const time_t *timep, struct tm *result) {
+	struct tm *tmp = NULL;
+	tmp = gmtime(timep);
+	if (tmp) *result = *tmp;
+
+	return tmp;
+}
 #endif
 
+#if !defined(HAVE_LOCALTIME_R) || !HAVE_DECL_LOCALTIME_R
+/* non-thread-safe replacement */
+struct tm *sd_localtime_r(const time_t *timep, struct tm *result) {
+	struct tm *tmp = NULL;
+	tmp = localtime(timep);
+	if (tmp) *result = *tmp;
 
+	return tmp;
+}
+#endif
+
+#else /* _WIN32 && !__MINGW32__ && !__MINGW64__ */
+
+/* native Windows environment */
+
+int sd_gettimeofday(LPFILETIME lpft, void* tzp) {
+
+    if (lpft) {
+        GetSystemTimeAsFileTime(lpft);
+    }
+    /* 0 indicates that the call succeeded. */
+    return 0;
+}
+
+/*
+ * Placeholder for WIN32 version to get last changetime of a file
+ */
+int sd_stat_ctime(const char* path, time_t* time)
+{ return -1; }
+
+#endif /* _WIN32 && !__MINGW32__ && !__MINGW64__ */

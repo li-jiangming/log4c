@@ -27,7 +27,7 @@
 #include "log4c.h"
 
 #ifdef _WIN32
-#ifndef __MINGW32__
+#if !defined(__MINGW32__) && !defined(__MINGW64__)
 int gettimeofday(struct timeval* tp, void* tzp) {
   DWORD t;
   t = timeGetTime();
@@ -36,7 +36,6 @@ int gettimeofday(struct timeval* tp, void* tzp) {
   /* 0 indicates that the call succeeded. */
   return 0;
 }
-
 #endif
 
 #if !defined(HAVE_SLEEP) || !HAVE_DECL_SLEEP

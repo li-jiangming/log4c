@@ -14,7 +14,7 @@
 #include <windows.h>
 #include <winsock.h>
 
-#ifndef __MINGW32__
+#if !defined(__MINGW32__) && !defined(__MINGW64__)
 
 #undef LOG4C_API
 #ifdef LOG4C_EXPORTS

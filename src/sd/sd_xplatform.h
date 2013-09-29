@@ -8,9 +8,15 @@
 #ifndef __sd_xplatform_h
 #define __sd_xplatform_h
 
-#ifndef _WIN32
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
+#if !defined(_WIN32) || defined(__MINGW32__) || defined(__MINGW64__)
 #include <sys/time.h>
+#include <sys/types.h>
 #include <sys/stat.h>
+#include <time.h>
 #else
 #include <time.h>
 #include <io.h> /* needed for _access  */
@@ -57,13 +63,24 @@ extern int sd_getopt(int argc, char *const *argv, const char *opts);
 #endif
 
 
-#ifdef _WIN32
+#if defined(_WIN32) && !defined(__MINGW32__) && !defined(__MINGW64__)
+
 #define SD_GETTIMEOFDAY(a,b) sd_gettimeofday(a,b)
 extern int sd_gettimeofday(LPFILETIME lpft, void* tzp);
 #else
 #define SD_GETTIMEOFDAY(a,b) gettimeofday(a,b)
-extern int sd_gettimeofday(struct timeval* tp, void* tzp);
+
+#if !defined(HAVE_GMTIME_R) || !HAVE_DECL_GMTIME_R
+#define gmtime_r(a, b) sd_gmtime_r((a), (b))
+struct tm *sd_gmtime_r(const time_t *timep, struct tm *result);
 #endif
+
+#if !defined(HAVE_LOCALTIME_R) || !HAVE_DECL_LOCALTIME_R
+#define localtime_r(a, b) sd_localtime_r((a), (b))
+struct tm *sd_localtime_r(const time_t *timep, struct tm *result);
+#endif
+
+#endif /* _WIN32 && !__MINGW32__ && !__MINGW64__ */
 
 #ifdef _WIN32
 #define FILE_SEP "\\"

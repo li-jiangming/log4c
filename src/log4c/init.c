@@ -41,11 +41,8 @@ static const char version[] = "$Id$";
 static const log4c_layout_type_t * const layout_types[] = {
     &log4c_layout_type_basic,
     &log4c_layout_type_dated,
-    /* These appenders are not yet ported with msvc */
-#ifndef _WIN32
     &log4c_layout_type_basic_r,
     &log4c_layout_type_dated_r    
-#endif
 };
 static size_t nlayout_types = sizeof(layout_types) / sizeof(layout_types[0]);
 

@@ -7,6 +7,9 @@ static const char version[] = "$Id$";
  *
  * See the COPYING file for the terms of usage and distribution.
  */
+#ifndef HAVE_CONFIG_H
+#include "config.h"
+#endif
 
 #include <log4c/layout.h>
 #include <log4c/priority.h>
@@ -23,12 +26,12 @@ static const char* dated_format(
 {
     static char buffer[1024];
 
-#ifndef _WIN32
-#ifndef __HP_cc
-#warning gmtime() routine should be defined in sd_xplatform
-#endif
-    struct tm   tm;
-    gmtime_r(&a_event->evt_timestamp.tv_sec, &tm);
+#ifdef LOG4C_POSIX_TIMESTAMP
+    struct tm tm;
+    time_t t;
+
+    t = a_event->evt_timestamp.tv_sec;
+    gmtime_r(&t, &tm);
     snprintf(buffer, sizeof(buffer), "%04d%02d%02d %02d:%02d:%02d.%03ld %-8s %s- %s\n",
              tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday,
              tm.tm_hour, tm.tm_min, tm.tm_sec,
@@ -36,17 +39,16 @@ static const char* dated_format(
              log4c_priority_to_string(a_event->evt_priority),
              a_event->evt_category, a_event->evt_msg);
 #else
-        SYSTEMTIME stime;
+    SYSTEMTIME stime;
 
-        if ( FileTimeToSystemTime(&a_event->evt_timestamp, &stime)){
-
-    snprintf(buffer, sizeof(buffer), "%04d%02d%02d %02d:%02d:%02d.%03ld %-8s %s- %s\n",
-             stime.wYear, stime.wMonth , stime.wDay,
-             stime.wHour, stime.wMinute, stime.wSecond,
-             stime.wMilliseconds,
-             log4c_priority_to_string(a_event->evt_priority),
-             a_event->evt_category, a_event->evt_msg);
-        }
+    if (FileTimeToSystemTime(&a_event->evt_timestamp, &stime)) {
+        snprintf(buffer, sizeof(buffer), "%04d%02d%02d %02d:%02d:%02d.%03ld %-8s %s- %s\n",
+                 stime.wYear, stime.wMonth , stime.wDay,
+                 stime.wHour, stime.wMinute, stime.wSecond,
+                 stime.wMilliseconds,
+                 log4c_priority_to_string(a_event->evt_priority),
+                 a_event->evt_category, a_event->evt_msg);
+    }
 #endif
     return buffer;
 }
@@ -56,4 +58,3 @@ const log4c_layout_type_t log4c_layout_type_dated = {
     "dated",
     dated_format,
 };
-

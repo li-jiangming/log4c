@@ -7,10 +7,14 @@ static const char version[] = "$Id$";
  *
  * See the COPYING file for the terms of usage and distribution.
  */
+#ifndef HAVE_CONFIG_H
+#include "config.h"
+#endif
 
 #include <log4c/layout.h>
 #include <log4c/priority.h>
 #include <sd/sprintf.h>
+#include <sd/sd_xplatform.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -21,23 +25,12 @@ static const char* dated_r_format(
     const log4c_logging_event_t*a_event)
 {
     int n, i;
-    struct tm	tm;
+#ifdef LOG4C_POSIX_TIMESTAMP
+    struct tm tm;
+    time_t t;
 
-#ifndef _WIN32
-#ifndef __HP_cc
-#warning gmtime() routine should be defined in sd_xplatform
-#endif
-    gmtime_r(&a_event->evt_timestamp.tv_sec, &tm);
-#else
-    /* xxx Need a CreateMutex/ReleaseMutex or something here
-     */
-    { 
-	struct tm *tmp = NULL;
-	tmp = gmtime(&a_event->evt_timestamp.tv_sec);
-	tm = *tmp; /* struct copy */
-    }
-#endif
-
+    t = a_event->evt_timestamp.tv_sec;
+    gmtime_r(&t, &tm);
     n = snprintf(a_event->evt_buffer.buf_data, a_event->evt_buffer.buf_size,
 		 "%04d%02d%02d %02d:%02d:%02d.%03ld %-8s %s - %s\n",
 		 tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday,
@@ -45,6 +38,19 @@ static const char* dated_r_format(
 		 a_event->evt_timestamp.tv_usec / 1000,
 		 log4c_priority_to_string(a_event->evt_priority),
 		 a_event->evt_category, a_event->evt_msg);
+#else
+    SYSTEMTIME stime;
+
+    if (FileTimeToSystemTime(&a_event->evt_timestamp, &stime)) {
+        n = snprintf(a_event->evt_buffer.buf_data, a_event->evt_buffer.buf_size,
+                 "%04d%02d%02d %02d:%02d:%02d.%03ld %-8s %s- %s\n",
+                 stime.wYear, stime.wMonth , stime.wDay,
+                 stime.wHour, stime.wMinute, stime.wSecond,
+                 stime.wMilliseconds,
+                 log4c_priority_to_string(a_event->evt_priority),
+                 a_event->evt_category, a_event->evt_msg);
+    }
+#endif
 
     if (n >= a_event->evt_buffer.buf_size) {
 	/*
@@ -63,4 +69,3 @@ const log4c_layout_type_t log4c_layout_type_dated_r = {
     "dated_r",
     dated_r_format,
 };
-

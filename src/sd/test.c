@@ -16,6 +16,9 @@ static const char version[] = "$Id$";
  
 #include <stdlib.h>
 #include <string.h>
+#if !defined(_WIN32) || defined(__MINGW32__) || defined(__MINGW32__)
+#include <sys/time.h>
+#endif
 
 typedef XP_UINT64 usec_t;
 
@@ -43,8 +46,8 @@ struct __sd_test
 /******************************************************************************/
 static usec_t now(void)
 {
- 
-#ifdef _WIN32
+
+#if defined(_WIN32) && !defined(__MINGW32__) && !defined(__MINGW64__)
  FILETIME tv;
  ULARGE_INTEGER   li;
 #else
@@ -53,7 +56,7 @@ static usec_t now(void)
 
     SD_GETTIMEOFDAY(&tv, NULL);
 
-#ifdef _WIN32
+#if defined(_WIN32) && !defined(__MINGW32__) && !defined(__MINGW64__)
 	memcpy(&li, &tv, sizeof(FILETIME));
 	li.QuadPart /= 10;                /* In microseconds */
 	/* printf("timestampstamp usec %I64u\n", li.QuadPart);*/

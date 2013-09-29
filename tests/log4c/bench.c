@@ -27,7 +27,7 @@
 typedef XP_UINT64 usec_t;
 static usec_t my_utime(void)
 {
-#ifdef _WIN32
+#if defined(_WIN32) && !defined(__MINGW32__) && !defined(__MINGW64__)
  FILETIME tv;
  ULARGE_INTEGER   li;
 #else
@@ -36,7 +36,7 @@ static usec_t my_utime(void)
     
     SD_GETTIMEOFDAY(&tv, NULL);
 
-#ifdef _WIN32
+#if defined(_WIN32) && !defined(__MINGW32__) && !defined(__MINGW64__)
 	memcpy(&li, &tv, sizeof(FILETIME));
 	li.QuadPart /= 10;                /* In microseconds */
 	/* printf("timestampstamp usec %I64u\n", li.QuadPart);*/
@@ -51,7 +51,7 @@ static usec_t my_utime(void)
 #define MSG_SIZE 128
 #define NUM_MSGS 16
 
-#ifdef _WIN32
+#if defined(_WIN32) && !defined(__MINGW32__) && !defined(__MINGW64__)
 #define display_time(name,start,stop,elapsed, avg) \
 fprintf(stderr,"%s: (start %I64u stop %I64u) elapsed %I64u us - average %I64u us\n\n", \
 	name, start, stop, elapsed, avg)
