@@ -104,7 +104,7 @@ LOG4C_API void log4c_rollingpolicy_set_udata(log4c_rollingpolicy_t* policyp,
 /**
  * Call the initialization code of a rolling policy.
  * @param policyp pointer to the rolling policy
- * @param app the rolling appender this policy is used with
+ * @param rfup the rolling appender user data this policy is used with
  * @return zero if successful, non-zero otherwise.
 */
 LOG4C_API int log4c_rollingpolicy_init(log4c_rollingpolicy_t *policyp,
@@ -119,7 +119,7 @@ LOG4C_API int log4c_rollingpolicy_init(log4c_rollingpolicy_t *policyp,
  * @param policyp pointer to the rolling policy
  * @return zero if successful, non-zero otherwise.
 */
-LOG4C_API int log4c_rollingpolicy_fini(log4c_rollingpolicy_t *a_this);
+LOG4C_API int log4c_rollingpolicy_fini(log4c_rollingpolicy_t *policyp);
 
 /**
  * Determine if a logging event should trigger a rollover according to
