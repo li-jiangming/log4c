@@ -6,6 +6,10 @@ static const char version[] = "$Id$";
  * See the COPYING file for the terms of usage and distribution.
  */
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include <string.h>
 
 #ifdef HAVE_LANGINFO_H
