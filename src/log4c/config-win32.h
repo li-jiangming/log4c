@@ -30,9 +30,6 @@
 #    define LOG4C_DATA       extern __declspec(dllimport)
 #endif
 
-#endif
-
-
 /* This is defined to be 'inline' by default,
    but with msvc6 undef it so that inlined
    functions are just normal functions.
@@ -40,5 +37,6 @@
 #undef LOG4C_INLINE
 #define LOG4C_INLINE
 
+#endif /* !__MINGW32__ && !__MINGW64__ */
 
 #endif /* __log4c_config_win32_h */

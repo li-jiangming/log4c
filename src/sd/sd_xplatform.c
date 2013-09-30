@@ -9,11 +9,17 @@ static const char version[] = "$Id$";
 #include "config.h"
 #endif
 
+#if !defined(_WIN32) || defined(__MINGW32__) || defined(__MINGW64__)
+#include <sys/time.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#else
+#include <windows.h>
+#endif
+#include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
-#include "log4c/defs.h"
-
-#include "sd_xplatform.h"
+#include <time.h>
 
 /****************** getopt *******************************/
 
@@ -149,3 +155,29 @@ int sd_stat_ctime(const char* path, time_t* time)
 { return -1; }
 
 #endif /* _WIN32 && !__MINGW32__ && !__MINGW64__ */
+
+#if defined(__MINGW32__) || defined(__MINGW64__)
+
+/* snprintf()/vsnprintf() on MinGW not adding null character and returns -1 */
+
+int sd_vsnprintf(char *str, size_t size, const char *format, va_list ap) {
+	int ret;
+
+	ret = vsnprintf(str, size, format, ap);
+	if (ret < 0) ret = size;
+	if (ret >= size) str[size - 1] = '\0';
+
+	return ret;
+}
+
+int sd_snprintf(char *str, size_t size, const char *format, ...) {
+	va_list ap;
+	int ret;
+
+	va_start(ap, format);
+	ret = sd_vsnprintf(str, size, format, ap);
+	va_end(ap);
+
+	return ret;
+}
+#endif

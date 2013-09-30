@@ -104,8 +104,15 @@ int sd_stat_ctime(const char* path, time_t* time);
 #endif
 
 #ifdef _WIN32
+#if defined(__MINGW32__) || defined(__MINGW64__)
+#define snprintf sd_snprintf
+#define vsnprintf sd_vsnprintf
+int sd_snprintf(char *str, size_t size, const char *format, ...) SD_ATTRIBUTE((format(printf, 3, 4)));
+int sd_vsnprintf(char *str, size_t size, const char *format, va_list ap);
+#else
 #define snprintf _snprintf
 #define vsnprintf _vsnprintf
+#endif
 #if !defined(HAVE_ALLOC_H) && defined(HAVE_MALLOC_H) && !defined(alloca)
 #define alloca _alloca
 #endif
