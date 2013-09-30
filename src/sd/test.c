@@ -26,7 +26,7 @@ typedef XP_UINT64 usec_t;
 
 struct __sd_test
 {
-    const char*         name;
+    char*               name;
     char                in_filename[128];
     char                ref_filename[128];
     char                out_filename[128];
@@ -84,6 +84,14 @@ extern sd_test_t* sd_test_new(int a_argc, char* a_argv[])
     this->name = ptr ? ptr + 1 : a_argv[0];
     ptr = strstr(this->name, "lt-");
     if (ptr) this->name = ptr + 3;
+    this->name = strdup(this->name);
+#ifdef _WIN32
+    /* strip .exe extension if found */
+    if (strlen(this->name) > 4) {
+      ptr = this->name + strlen(this->name) - 4;
+      if (strcasecmp(ptr, ".exe") == 0) ptr[0] = '\x0';
+    }
+#endif
 
     snprintf(this->ref_filename, sizeof(this->ref_filename), "%s.ref",
 	     this->name);
@@ -119,6 +127,7 @@ extern void sd_test_delete(sd_test_t* this)
 
     if (this->in) fclose(this->in);
     if (this->out) fclose(this->out);
+    free(this->name);
     free(this->funcs);
     free(this);
 }
