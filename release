@@ -1,3 +1,5 @@
+#! /bin/sh -e
+
 # Modify versions in configure.in:
 # - LOG4C_MAJOR_VERSION
 # - LOG4C_MINOR_VERSION
@@ -15,6 +17,7 @@ minor=$(grep LOG4C_MINOR_VERSION= configure.in)
 micro=$(grep LOG4C_MICRO_VERSION= configure.in)
 fname=log4c-${major:20}.${minor:20}.${micro:20}
 tagname=log4c_${major:20}_${minor:20}_${micro:20}
+cvsroot=:pserver:anonymous@log4c.cvs.sourceforge.net:/cvsroot/log4c
 
 echo "Building dist tarball for release $fname"
 echo "CVS tagname $tagname"
@@ -31,17 +34,19 @@ pushd log4c_dist
 
 
 
-prompt="Do you want a fresh cvs checkout , cvs co -r $tagname    (y/n)"
+prompt="Do you want a fresh cvs checkout of tag $tagname    (y/n)"
 echo -n $prompt
 read answer
 
 if [ "y" == "$answer" ] 
 then
   echo "Pulling from CVS with  cvs co -r $tagname"
-  cvs co -r $tagname log4c
+  cvs -d $cvsroot co -r $tagname log4c
 else
   echo "Copying from starting working dir"
-  cp -r ../../log4c .
+  (cd ../.. && tar -cf - log4c > /tmp/log4c-src.tar)
+  tar xf /tmp/log4c-src.tar
+  rm /tmp/log4c-src.tar
 fi
 
 #
@@ -52,12 +57,13 @@ pushd log4c
 ./bootstrap
 ./configure 
 make dist
+mv $fname.tar.gz ../
 popd
 #
 #
 #
 echo "unpacking and testing tarball $fname.tar.gz"
-tar -xzvf log4c/$fname.tar.gz
+tar -xzvf $fname.tar.gz
 pushd $fname
 mkdir build
 pushd build
@@ -66,6 +72,35 @@ pushd build
 make
 make install
 make check
+popd
+
+# (optional - MinGW binaries)
+mkdir build-win32
+pushd build-win32
+../configure --enable-doc --enable-test --host=i686-w64-mingw32 --build=x86_64-pc-linux-gnu
+make -j2
+make install DESTDIR=/tmp/root-w32
+mv /tmp/root-w32/usr/local ${fname}-win32
+rm -rf /tmp/root-w32
+cp /usr/i686-w64-mingw32/sys-root/mingw/bin/libexpat*.dll /usr/i686-w64-mingw32/sys-root/mingw/bin/libgcc_s*.dll ${fname}-win32/bin
+zip ../../${fname}-win32.zip -r ${fname}-win32
+rm -rf ${fname}-win32 && mkdir -p ${fname}-win32/bin
+for i in tests/log4c/*.exe; do ./libtool --mode=install install $i `pwd`/${fname}-win32/bin; done
+zip ../../${fname}-win32-tests.zip -r ${fname}-win32
+popd
+
+mkdir build-win64
+pushd build-win64
+../configure --enable-doc --enable-test --host=x86_64-w64-mingw32 --build=x86_64-pc-linux-gnu
+make -j2
+make install DESTDIR=/tmp/root-w64
+mv /tmp/root-w64/usr/local ${fname}-win64
+rm -rf /tmp/root-w64
+cp /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libexpat*.dll /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libgcc_s*.dll ${fname}-win64/bin
+zip ../../${fname}-win64.zip -r ${fname}-win64
+rm -rf ${fname}-win64 && mkdir -p ${fname}-win64/bin
+for i in tests/log4c/*.exe; do ./libtool --mode=install install $i `pwd`/${fname}-win64/bin; done
+zip ../../${fname}-win64-tests.zip -r ${fname}-win64
 popd
 
 popd
