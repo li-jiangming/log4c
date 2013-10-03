@@ -1,3 +1,26 @@
+In this release there are new layouts logging messages with local time. There
+is also various maintenance work and improved security in public API headers.
+Windows MinGW port has been thoroughly tested and updated.
+
+Summary of the changes:
+
+* new date_local and date_local_r appenders
+* MinGW updates and important bugfixes:
+  * timeval vs FILETIME structures mismatch
+  * cleanups
+  * support for MinGW >= 4.8
+  * add -no-undefied linker flag to create shared dll
+  * reentrant layouts on all platforms now
+  * replacement functions for buggy snprintf()/vsnprintf()
+  * tests working out-of-the-box
+  * proper output of long long int
+  * generate also .def file
+  * providing binaries for the release
+* tests working out-of-the-box on FreeBSD
+* fixed several warnings
+* public API functions with format strings are marked by GNU C format attribute
+* updated documentation
+
 1.2.3	2013-04-06:
 
 This release contains important bugfix in syslog appender. There are also
@@ -24,7 +47,7 @@ and patches:
 * fixed crash on messages longer than 1024 bytes
 * added one missing C++ declaration
 * fixed reopening of the stream appender
-* proper coppy message over end of the file in mmap appender
+* proper copy message over end of the file in mmap appender
 * portability improvements:
   * support for XCode 3 and OSX 10.5
   * support build with MinGW

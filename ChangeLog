@@ -1,3 +1,95 @@
+2013-10-03  František Dvořák  <valtri@civ.zcu.cz>
+
+	* src/sd/test.c, tests/log4c/bench.c, tests/log4c/bench_fwrite.c:
+	Proper formating of long long integers in MSVC and MinGW ports.
+
+	* release: Release covering also MinGW binaries with tests. Script
+	small improvements.
+
+	* configure.in, release, src/log4c/Makefile.am: Generate .def file in
+	MinGW platform, launch MSVC linker during release if available.
+
+	* ChangeLog, NEWS, configure.in: log4c-1.2.4
+
+2013-09-30  František Dvořák  <valtri@civ.zcu.cz>
+
+	* src/sd/domnode-xml.c: Build with disabled expat and available
+	nl_langinfo.
+
+	* src/log4c/config-win32.h, src/log4c/layout_type_basic_r.c,
+	src/sd/sd_xplatform.c, src/sd/sd_xplatform.h:
+	Replacement function for buggy snprintf()/vsnrpintf on MinGW. Also
+	removed sd_xplatform.h header from the sd_xplatform.c as we need the
+	original vsnprintf() function.
+
+	* src/sd/test.c, tests/log4c/Makefile.am:
+	Launching tests under MinGW (and keep FreeBSD working).
+
+2013-09-29  František Dvořák  <valtri@civ.zcu.cz>
+
+	* README, configure.in, examples/application_1.c,
+	examples/application_2.c, examples/application_3.c,
+	src/log4c/Makefile.am, src/log4c/category.c, src/sd/sd_xplatform.h:
+	MinGW port improvements:
+	- add required '-no-undefined' linker flag (shared dll library is created now)
+	- don't call non-portable autoconf functions (==> environment hacks are not needed anymore)
+	- update README
+	- sleep function (fix build with mingw >= 4.8, cover implicit declaration with mingw 4.7)
+	- alloca function
+	- warning fixes
+
+	* configure.in, examples/application_1.c, examples/application_2.c,
+	examples/application_3.c, src/log4c/config-win32.h, src/log4c/init.c,
+	src/log4c/layout_type_dated.c, src/log4c/layout_type_dated_r.c,
+	src/log4c/logging_event.h, src/sd/malloc.c, src/sd/sd_xplatform.c,
+	src/sd/sd_xplatform.h, src/sd/test.c, tests/log4c/bench.c,
+	tests/log4c/test_rollingfile_appender_mt.c:
+	MinGW port bugfixes and cleanups:
+	- fix mismatch between FILETIME and timeval structures
+	- move gmtime_r replacement function from layouts to sd_xplatform.c
+	- reentrant layouts cleanups
+	- reentrant layouts enabled on all platforms (POSIX, MinGW, Windows native)
+	- warnings fixes
+
+	* examples/helloworld/helloworld.c, examples/userloc_formatter.c,
+	src/log4c/appender_type_rollingfile.c,
+	src/log4c/appender_type_stream2.c, src/log4c/init.c,
+	src/sd/domnode-expat.c, src/sd/test.c, tests/log4c/bench_fwrite.c,
+	tests/log4c/test_category.c:
+	Warnings fixes - unused variables and implicit declarations.
+
+	* src/sd/test.c, tests/log4c/Makefile.am:
+	Porting tests on FreeBSD:
+	- no libtool prefix on binaries
+	- NULL pointer printed as "0x0" instead of "(nil)"
+
+	* examples/application_3.h, src/log4c/category.h, src/log4c/defs.h,
+	src/sd/defs.h, src/sd/error.h, src/sd/factory.c, src/sd/sprintf.h:
+	Add GNU C format attribute to enable checks of format string with
+	provided parameters. Used internally and in public API.
+
+	* doc/Makefile.am:
+	Tuning documentation build:
+	- disable paralelism because of latex (whole log4c can be built parallel after that)
+	- don't repeat build of the documentation when not needed - removed phony target
+
+	* doc/Doxyfile.in, src/log4c/rollingpolicy.h:
+	Update doxygen documentation: work properly with __attribute__,
+	doxygen warnings.
+
+	* doc/main.doc.in: Update summary documentation (typos, URL to log4j
+	1.2).
+
+	* tests/log4c/test_rc.c, tests/log4c/test_rc.ref:
+	Memory leak in test_rc.
+
+	* src/log4c/Makefile.am, src/log4c/init.c,
+	src/log4c/layout_type_dated_local.c,
+	src/log4c/layout_type_dated_local.h,
+	src/log4c/layout_type_dated_local_r.c,
+	src/log4c/layout_type_dated_local_r.h:
+	New dated layouts using localtime (requested in SF bug #21).
+
 2013-04-06  František Dvořák  <valtri@civ.zcu.cz>
 
 	* README: typos
