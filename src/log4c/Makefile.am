@@ -4,6 +4,11 @@ INCLUDES = \
 
 lib_LTLIBRARIES  = liblog4c.la
 
+DEF_FILE = liblog4c.def
+if WIN32
+def_ldflags = -Wl,--output-def,$(DEF_FILE)
+endif
+
 liblog4c_la_SOURCES = \
 	rc.c \
 	init.c \
@@ -32,7 +37,8 @@ if WITH_MMAP
 liblog4c_la_SOURCES += appender_type_mmap.c
 endif
 
-liblog4c_la_LDFLAGS = -version-info @LT_VERSION@ $(LDFLAGS_NOUNDEFINED)
+liblog4c_la_LDFLAGS = -version-info @LT_VERSION@ $(LDFLAGS_NOUNDEFINED) \
+	$(def_ldflags)
 liblog4c_la_LIBADD  = ../sd/liblog4c_sd.la
 
 pkginclude_HEADERS = \
@@ -62,3 +68,11 @@ pkginclude_HEADERS = \
   rollingpolicy.h \
   rollingpolicy_type_sizewin.h
 
+if WIN32
+install-exec-local:
+	-$(MKDIR_P) $(DESTDIR)$(libdir)
+	$(INSTALL) $(DEF_FILE) $(DESTDIR)$(libdir)
+
+uninstall-local:
+	rm -f $(DEF_FILE)
+endif

@@ -83,6 +83,7 @@ make install DESTDIR=/tmp/root-w32
 mv /tmp/root-w32/usr/local ${fname}-win32
 rm -rf /tmp/root-w32
 cp /usr/i686-w64-mingw32/sys-root/mingw/bin/libexpat*.dll /usr/i686-w64-mingw32/sys-root/mingw/bin/libgcc_s*.dll ${fname}-win32/bin
+lib.exe /machine:x86 /def:${fname}/lib/liblog4c.def /out:${fname}/lib/liblog4c.lib || true
 zip ../../${fname}-win32.zip -r ${fname}-win32
 rm -rf ${fname}-win32 && mkdir -p ${fname}-win32/bin
 for i in tests/log4c/*.exe; do ./libtool --mode=install install $i `pwd`/${fname}-win32/bin; done
@@ -97,6 +98,7 @@ make install DESTDIR=/tmp/root-w64
 mv /tmp/root-w64/usr/local ${fname}-win64
 rm -rf /tmp/root-w64
 cp /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libexpat*.dll /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libgcc_s*.dll ${fname}-win64/bin
+lib.exe /machine:x86 /def:${fname}/lib/liblog4c.def /out:${fname}/lib/liblog4c.lib || true
 zip ../../${fname}-win64.zip -r ${fname}-win64
 rm -rf ${fname}-win64 && mkdir -p ${fname}-win64/bin
 for i in tests/log4c/*.exe; do ./libtool --mode=install install $i `pwd`/${fname}-win64/bin; done

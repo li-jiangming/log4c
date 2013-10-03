@@ -55,11 +55,13 @@ case "$host" in
     *-mingw*)
 	dnl required to create shared libraries
 	LDFLAGS_NOUNDEFINED="-no-undefined"
+	l4c_have_win=yes
 	;;
     *)
 	;;
 esac
 AC_SUBST([LDFLAGS_NOUNDEFINED])
+AM_CONDITIONAL([WIN32], test "x$l4c_have_win" = "xyes")
 
 if test "x$GCC" = "xyes"; then
   case " $CFLAGS " in
