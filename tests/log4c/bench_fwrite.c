@@ -291,7 +291,11 @@ int main(int argc, char **argv){
 
   end = gettimestamp_milis();
   delta = (end - start);
+#ifdef _WIN32
+  bench_log( "\n  Time = %I64d milisec\n", delta);
+#else
   bench_log( "\n  Time = %lld milisec\n", delta);
+#endif
   
   bench_init(0);
   

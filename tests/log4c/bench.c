@@ -51,7 +51,7 @@ static usec_t my_utime(void)
 #define MSG_SIZE 128
 #define NUM_MSGS 16
 
-#if defined(_WIN32) && !defined(__MINGW32__) && !defined(__MINGW64__)
+#if defined(_WIN32)
 #define display_time(name,start,stop,elapsed, avg) \
 fprintf(stderr,"%s: (start %I64u stop %I64u) elapsed %I64u us - average %I64u us\n\n", \
 	name, start, stop, elapsed, avg)

@@ -210,7 +210,11 @@ extern int sd_test_run(sd_test_t* this, int argc, char* argv[])
         
         fprintf(sd_test_err(this), "%c", t ? '+' : '-');
         if (this->timed)
+#ifdef _WIN32
+            fprintf(sd_test_err(this), "%I64u ", elapsed);
+#else
             fprintf(sd_test_err(this), "%llu ", elapsed);
+#endif
     }
     
     fprintf(sd_test_err(this), " %d/%d %s.\n", passed, this->size,
