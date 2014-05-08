@@ -157,12 +157,14 @@ href="http://log4cpp.sourceforge.net/">Log4Cpp</a>.
 
 Many thanks to 
 
+@li Cédric Le Goater main author
 @li Joel Schaubert for many contributions
 @li Robert Byrne for Windows port and also many contributions
 @li Olger Warnier for the Mac OS X port 
 @li Jeff Smith for writing a primer on <a
 href="http://jefficus.usask.ca/article.php?story=20040613140849924">how
 to use Log4c effectively</a>
+@li František Dvořák for MinGW port and maintenance
 
 @section copyright Copyright
 
