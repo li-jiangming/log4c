@@ -71,5 +71,4 @@ check-local:
 	done
 
 clean-local:
-	$(RM) *.out bench.mmap
-
+	$(RM) *.out *.out2 bench.mmap
