@@ -3,7 +3,7 @@ AM_CPPFLAGS = \
 	-DSRCDIR="\"$(srcdir)\""
 
 noinst_PROGRAMS = test_category test_rc bench bench_fwrite \
-	test_stream2 test_layout_r test_big cpp_compile_test
+	test_stream2 test_layout_r test_big cpp_compile_test test_init
 
 if WITH_ROLLINGFILE
 noinst_PROGRAMS += test_rollingfile_appender test_rollingfile_appender_mt
@@ -43,6 +43,9 @@ endif
 test_big_SOURCES = test_big.c
 test_big_LDADD = $(top_builddir)/src/log4c/liblog4c.la
 
+test_init_SOURCES = test_init.c
+test_init_LDADD = $(top_builddir)/src/log4c/liblog4c.la
+
 EXTRA_DIST = \
 	test_big.ref \
 	test_category.ref \
@@ -56,7 +59,7 @@ bench.mmap:
 all-local: bench.mmap 
 
 check-local: 
-	@for i in test_category test_layout_r test_rc test_big; do \
+	@for i in test_init test_category test_layout_r test_rc test_big; do \
 	    LOG4C_PRIORITY=notice ./$$i$(EXEEXT) || exit 1; \
 	    sed \
 		-e 's/udata:0x00*\([ }]\)/udata:(nil)\1/' \
