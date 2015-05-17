@@ -1,8 +1,4 @@
-/* $Id: appender_type_rollingfile.h
- *
- * appender_type_rollingfile.h
- * 
- *
+/*
  * See the COPYING file for the terms of usage and distribution.
  */
 

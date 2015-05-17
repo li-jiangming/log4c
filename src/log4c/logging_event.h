@@ -1,7 +1,4 @@
-/* $Id$
- *
- * logging_event.h
- * 
+/*
  * Copyright 2001-2003, Meiosys (www.meiosys.com). All rights reserved.
  *
  * See the COPYING file for the terms of usage and distribution.

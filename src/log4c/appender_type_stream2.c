@@ -1,5 +1,3 @@
-static const char version[] = "$Id$";
-
 /*
  * appender_stream2.c
  *

@@ -1,5 +1,3 @@
-static const char version[] = "$Id$";
-
 /* 
  * Copyright 2001-2003, Meiosys (www.meiosys.com). All rights reserved.
  *

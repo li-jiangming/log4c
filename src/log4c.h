@@ -1,5 +1,4 @@
-/* $Id$
- *
+/*
  * log4c.h
  *
  * Copyright 2001-2002, Meiosys (www.meiosys.com). All rights reserved.

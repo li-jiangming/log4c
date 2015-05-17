@@ -1,5 +1,3 @@
-static const char version[] = "$Id$";
-
 /*
  * logging_event.c
  *

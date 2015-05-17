@@ -1,5 +1,3 @@
-# $Id$ 
-
 %define RELEASE 1
 %define rel     %{?CUSTOM_RELEASE} %{!?CUSTOM_RELEASE:%RELEASE}
 %define _unpackaged_files_terminate_build 0
