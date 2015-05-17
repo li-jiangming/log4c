@@ -7,7 +7,7 @@
 # - LT_VERSION
 
 # Tag the new release, for example:
-# cvs tag log4c_1_2_2
+# git tag log4c_1_2_5
 
 #
 # Get log4c version and contruct directory name
@@ -17,10 +17,10 @@ minor=$(grep LOG4C_MINOR_VERSION= configure.in)
 micro=$(grep LOG4C_MICRO_VERSION= configure.in)
 fname=log4c-${major:20}.${minor:20}.${micro:20}
 tagname=log4c_${major:20}_${minor:20}_${micro:20}
-cvsroot=:pserver:anonymous@log4c.cvs.sourceforge.net:/cvsroot/log4c
+gitroot='git://git.code.sf.net/p/log4c/log4c'
 
 echo "Building dist tarball for release $fname"
-echo "CVS tagname $tagname"
+echo "Tagname $tagname"
 
 #
 # clean up from previous run
@@ -34,14 +34,15 @@ pushd log4c_dist
 
 
 
-prompt="Do you want a fresh cvs checkout of tag $tagname    (y/n)"
+prompt="Do you want a fresh checkout of tag $tagname    (y/n)"
 echo -n $prompt
 read answer
 
 if [ "y" == "$answer" ] 
 then
-  echo "Pulling from CVS with  cvs co -r $tagname"
-  cvs -d $cvsroot co -r $tagname log4c
+  echo "Pulling from git with: git clone $gitroot log4c; (cd log4c; git checkout $tagname)"
+  git clone $gitroot log4c
+  (cd log4c; git checkout $tagname)
 else
   echo "Copying from starting working dir"
   (cd ../.. && tar -cf - log4c > /tmp/log4c-src.tar)

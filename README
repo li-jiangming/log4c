@@ -113,13 +113,12 @@ This is the distribution of Log4C (last updated 13 Nov 2006)
 
 * How to for library developers ...
    
-  When you check out Log4C from CVS (as opposed to downloading a released
+  When you check out Log4C from git (as opposed to downloading a released
   tarball) you will need to generate the configure script and so on. To do this
   run the bootstrap script. This script must be run in the source directories
   themselves:
    
-    $ cvs -d:pserver:anonymous@log4c.cvs.sourceforge.net:/cvsroot/log4c login
-    $ cvs -z3 -d:pserver:anonymous@log4c.cvs.sourceforge.net:/cvsroot/log4c co -P log4c
+    $ git clone git://git.code.sf.net/p/log4c/log4c log4c
     $ cd log4c
     $ ./bootstrap
 

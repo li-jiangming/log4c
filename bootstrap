@@ -4,7 +4,7 @@
 # Run this bootstrap script to 
 # create the configure script and Makefile.in files etc.
 #
-# You need to do this if you have just done 'cvs co log4c'.
+# You need to do this if you have just done checkout from repository.
 #
 # We require:
 # autoconf 2.57+
@@ -21,10 +21,10 @@
 # to create the Makefiles.  It is generarelly better if you 
 # do that outside the source tree...something like this:
 #
-# cvs co log4c
+# git clone git://git.code.sf.net/p/log4c/log4c log4c
 # cd log4c; ./bootstrap
 # cd ..;
-# mkdir fc5; cd fc5
+# mkdir log4c-bin; cd log4c-bin
 # ../log4c/configure --enable-test --enable-debug --enable-doc
 # make
 # 
