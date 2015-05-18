@@ -92,24 +92,29 @@
  }
  
 
-#if !defined(_WIN32) || defined(__MINGW32__) || defined(__MINGW64__)
-
-/* POSIX-like environment */
-
 /*
  * Get last changetime of a file
+ *
+ * Using rather stat.st_mtime instead of stat.st_ctime
+ * (stat.st_ctime means "creation time" on Windows (MSVC)).
+ *
  */
 int sd_stat_ctime(const char* path, time_t* time)
 {
 	struct stat astat;
+
 	int statret=stat(path,&astat);
 	if (0 != statret)
 	{
 		return statret;
 	}
-	*time=astat.st_ctime;
+	*time=astat.st_mtime;
 	return statret;
 }
+
+#if !defined(_WIN32) || defined(__MINGW32__) || defined(__MINGW64__)
+
+/* POSIX-like environment */
 
 #if !defined(HAVE_GMTIME_R) || !HAVE_DECL_GMTIME_R
 /* non-thread-safe replacement */
@@ -145,12 +150,6 @@ int sd_gettimeofday(LPFILETIME lpft, void* tzp) {
     /* 0 indicates that the call succeeded. */
     return 0;
 }
-
-/*
- * Placeholder for WIN32 version to get last changetime of a file
- */
-int sd_stat_ctime(const char* path, time_t* time)
-{ return -1; }
 
 #endif /* _WIN32 && !__MINGW32__ && !__MINGW64__ */
 
