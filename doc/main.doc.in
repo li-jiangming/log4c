@@ -6,6 +6,7 @@
 <a href="#summary">Summary</a>
 <a href="#requirements">Requirements</a>
 <a href="#installation">Installation</a>
+<a href="#usage">Usage in the code</a>
 <a href="#config">Configuration</a>
 <a href="#custom">Customization</a>
 <a href="#thanks">Thanks</a>
@@ -88,6 +89,28 @@ $ make install
 
 Checkout the @c INSTALL file for installation and the generated doxygen
 documentation for more information.
+
+@section usage Usage in the code
+
+It is important to properly use log4c API expecting the format strings. For example for logging plain string, it should be used:
+
+@code
+
+  log4c_category_log(log4c_category_get(catName), a_priority, "%s", msg);
+
+@endcode
+
+and NOT:
+
+@code
+
+  log4c_category_log(log4c_category_get(catName), a_priority, msg);
+
+@endcode
+
+because "msg" can contain '%%' characters.
+
+It is recommended to compile your projects with CFLAGS <b>-Wall -Wformat-security</b> or <b>-Wformat -Wformat-security</b>.
 
 @section config Configuration
 
