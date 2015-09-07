@@ -39,7 +39,7 @@ static LOG4C_INLINE int mylog_fini(){
 
 static LOG4C_INLINE void mylog_msg(char *catName,int a_priority, char *msg){
 #ifndef WITHOUT_LOG4C
-	log4c_category_log(log4c_category_get(catName), a_priority, msg);
+	log4c_category_log(log4c_category_get(catName), a_priority, "%s", msg);
 #else
 	printf(msg);
 #endif
