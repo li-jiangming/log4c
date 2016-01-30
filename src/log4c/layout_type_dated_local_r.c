@@ -37,7 +37,7 @@ static const char* dated_local_r_format(
 		 log4c_priority_to_string(a_event->evt_priority),
 		 a_event->evt_category, a_event->evt_msg);
 #else
-    SYSTEMTIME stime, stime;
+    SYSTEMTIME stime, ltime;
 
     if (FileTimeToSystemTime(&a_event->evt_timestamp, &stime) &&
         SystemTimeToTzSpecificLocalTime(NULL, &stime, &ltime)) {
