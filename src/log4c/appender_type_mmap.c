@@ -89,7 +89,7 @@ static int mmap_open(log4c_appender_t* this)
 
     minfo->addr = mmap(NULL, minfo->length, PROT_READ|PROT_WRITE,
 		      MAP_SHARED, minfo->fd, 0);
-    if (minfo->addr == NULL) {
+    if (minfo->addr == MAP_FAILED) {
 	perror("mmap");
 	mmap_info_delete(minfo);
 	return -1;
